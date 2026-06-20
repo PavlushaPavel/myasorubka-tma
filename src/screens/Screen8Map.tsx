@@ -24,7 +24,7 @@ const DELIVERABLES = [
 export const Screen8Map = () => {
   const professionId = useAppStore(s => s.profession)
   const refCode = useAppStore(s => s.refCode)
-  const { notify, impact } = useTelegramHaptics()
+  const { notify, impact, select } = useTelegramHaptics()
   const profession = professionId ? getProfession(professionId) : null
 
   const [openMap, setOpenMap] = useState<number | null>(null)
@@ -55,7 +55,7 @@ export const Screen8Map = () => {
         {MAP_ITEMS.map((item, i) => (
           <div key={i} style={{ marginBottom: 8 }}>
             <button
-              onClick={() => setOpenMap(openMap === i ? null : i)}
+              onClick={() => { setOpenMap(openMap === i ? null : i); select() }}
               style={{ width: '100%', textAlign: 'left', background: 'var(--bg-card)', border: '1px solid var(--border-card)', borderRadius: 8, padding: '12px 16px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
             >
               <span style={{ color: 'var(--text-primary)', fontSize: 14, fontWeight: 600 }}>{item.title}</span>

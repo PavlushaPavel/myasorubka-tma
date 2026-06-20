@@ -29,7 +29,7 @@ export const Screen6Loupe = () => {
         onComplete={() => { setLoupeComplete(true); impact('medium') }}
       />
 
-      <div className="card" style={{ marginTop: 20, borderLeft: '3px solid var(--accent-blue)' }}>
+      <div className="card" style={{ marginTop: 20, background: 'linear-gradient(180deg, oklch(0.58 0.205 266 / 0.12), var(--bg-raise))', borderColor: 'oklch(0.58 0.205 266 / 0.35)' }}>
         <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.7 }}>
           <strong style={{ color: 'var(--text-primary)' }}>Лупа показывает, где сливается.</strong><br />
           AI-штаб помогает собрать, что с этим делать.

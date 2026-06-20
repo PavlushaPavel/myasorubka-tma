@@ -7,7 +7,7 @@ import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 
 export const Screen5AI = () => {
   const professionId = useAppStore(s => s.profession)
-  const { impact } = useTelegramHaptics()
+  const { impact, select } = useTelegramHaptics()
   const profession = professionId ? getProfession(professionId) : null
   const [tab, setTab] = useState<'before' | 'after'>('before')
 
@@ -55,7 +55,7 @@ export const Screen5AI = () => {
             {(['before', 'after'] as const).map(t => (
               <button
                 key={t}
-                onClick={() => setTab(t)}
+                onClick={() => { setTab(t); select() }}
                 style={{
                   flex: 1, padding: '8px', borderRadius: 8, border: 'none', cursor: 'pointer',
                   background: tab === t ? 'var(--accent-blue)' : 'var(--bg-card)',

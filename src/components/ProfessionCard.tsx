@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import type { Profession } from '../types'
 
 interface Props {
@@ -7,21 +8,45 @@ interface Props {
 }
 
 export const ProfessionCard = ({ profession, selected, onSelect }: Props) => (
-  <button
+  <motion.button
     onClick={() => onSelect(profession.id)}
+    whileTap={{ scale: 0.985 }}
+    transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
     style={{
+      position: 'relative',
       width: '100%',
-      background: selected ? 'rgba(255,183,3,0.08)' : 'var(--bg-card)',
+      background: selected
+        ? 'linear-gradient(180deg, oklch(0.84 0.165 82 / 0.12), oklch(0.84 0.165 82 / 0.05))'
+        : 'linear-gradient(180deg, var(--bg-card), var(--bg-raise))',
       border: `1px solid ${selected ? 'var(--accent-gold)' : 'var(--border-card)'}`,
-      borderLeft: `3px solid ${selected ? 'var(--accent-gold)' : 'transparent'}`,
       borderRadius: 'var(--radius)',
-      padding: '14px 16px',
+      padding: '15px 18px',
       textAlign: 'left',
       cursor: 'pointer',
-      transition: 'all 0.2s',
+      boxShadow: selected ? 'var(--glow-gold)' : 'var(--shadow-sm)',
+      transition: 'background 0.25s, border-color 0.25s, box-shadow 0.25s',
     }}
   >
-    <div style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: 15, marginBottom: 4 }}>{profession.label}</div>
-    <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>{profession.blameCard}</div>
-  </button>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+      <div>
+        <div style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-data)', fontWeight: 600, fontSize: 16, letterSpacing: '0.01em', marginBottom: 4 }}>
+          {profession.label}
+        </div>
+        <div style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.45 }}>{profession.blameCard}</div>
+      </div>
+      <motion.span
+        initial={false}
+        animate={{ opacity: selected ? 1 : 0.25, scale: selected ? 1 : 0.6 }}
+        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          flexShrink: 0,
+          width: 10,
+          height: 10,
+          borderRadius: '50%',
+          background: 'var(--accent-gold)',
+          boxShadow: selected ? '0 0 12px var(--accent-gold)' : 'none',
+        }}
+      />
+    </div>
+  </motion.button>
 )
