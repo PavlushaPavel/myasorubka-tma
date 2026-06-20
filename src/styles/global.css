@@ -74,6 +74,18 @@ html, body, #root {
   text-rendering: optimizeLegibility;
 }
 
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 24px 20px 40px;
+}
+
 /* ---- Film grain overlay: kills the flat "digital" look ---- */
 body::before {
   content: '';
