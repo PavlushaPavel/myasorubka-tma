@@ -1,0 +1,89 @@
+:root {
+  --bg-deep: #080810;
+  --bg-card: #0F0F1A;
+  --bg-card-hover: #151525;
+  --accent-red: #E63946;
+  --accent-gold: #FFB703;
+  --accent-blue: #4361EE;
+  --accent-green: #2DC653;
+  --text-primary: #F1FAEE;
+  --text-muted: #8D99AE;
+  --text-faint: #4A5568;
+  --border-card: rgba(255,255,255,0.06);
+  --glow-red: 0 0 24px rgba(230,57,70,0.6);
+  --glow-gold: 0 0 20px rgba(255,183,3,0.5);
+  --glow-blue: 0 0 16px rgba(67,97,238,0.4);
+  --radius: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px 20px 40px;
+  min-height: 100%;
+}
+
+h1, h2 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.04em; }
+
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  background: var(--accent-blue);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border-card);
+  color: var(--text-muted);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.tag-red { background: rgba(230,57,70,0.15); color: var(--accent-red); }
+.tag-gold { background: rgba(255,183,3,0.15); color: var(--accent-gold); }
+.tag-blue { background: rgba(67,97,238,0.15); color: var(--accent-blue); }
