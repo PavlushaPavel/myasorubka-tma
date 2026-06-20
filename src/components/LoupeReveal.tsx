@@ -25,13 +25,13 @@ export const LoupeReveal = ({ stampText, slivPoints, onComplete }: Props) => {
   return (
     <div style={{ position: 'relative' }}>
       <div style={{ textAlign: 'center', padding: '24px 0', position: 'relative' }}>
-        <div style={{ fontFamily: 'Oswald', fontWeight: 700, fontSize: 'clamp(36px, 12vw, 56px)', textTransform: 'uppercase', color: 'rgba(230,57,70,0.25)', border: '3px solid rgba(230,57,70,0.25)', padding: '8px 16px', display: 'inline-block', transform: 'rotate(-5deg)' }}>
+        <div style={{ fontFamily: 'var(--font-stamp)', fontWeight: 700, fontSize: 'clamp(34px, 11vw, 54px)', textTransform: 'uppercase', letterSpacing: '0.01em', color: 'rgba(230,57,70,0.25)', border: '3px solid rgba(230,57,70,0.25)', padding: '8px 16px', display: 'inline-block', transform: 'rotate(-5deg)' }}>
           {stampText}
         </div>
       </div>
       <motion.div style={{ clipPath, position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, pointerEvents: 'none' }}>
         <div style={{ padding: '24px 0', textAlign: 'center' }}>
-          <div style={{ fontFamily: 'Oswald', fontWeight: 700, fontSize: 'clamp(36px, 12vw, 56px)', textTransform: 'uppercase', color: 'var(--accent-red)', border: '3px solid var(--accent-red)', padding: '8px 16px', display: 'inline-block', transform: 'rotate(-5deg)', boxShadow: 'var(--glow-red)' }}>
+          <div style={{ fontFamily: 'var(--font-stamp)', fontWeight: 700, fontSize: 'clamp(34px, 11vw, 54px)', textTransform: 'uppercase', letterSpacing: '0.01em', color: 'var(--accent-red)', border: '3px solid var(--accent-red)', padding: '8px 16px', display: 'inline-block', transform: 'rotate(-5deg)', boxShadow: 'var(--glow-red)' }}>
             {stampText}
           </div>
         </div>

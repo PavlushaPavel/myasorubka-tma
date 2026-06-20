@@ -1,19 +1,63 @@
 :root {
-  --bg-deep: #080810;
-  --bg-card: #0F0F1A;
-  --bg-card-hover: #151525;
-  --accent-red: #E63946;
-  --accent-gold: #FFB703;
-  --accent-blue: #4361EE;
-  --accent-green: #2DC653;
-  --text-primary: #F1FAEE;
-  --text-muted: #8D99AE;
-  --text-faint: #4A5568;
-  --border-card: rgba(255,255,255,0.06);
-  --glow-red: 0 0 24px rgba(230,57,70,0.6);
-  --glow-gold: 0 0 20px rgba(255,183,3,0.5);
-  --glow-blue: 0 0 16px rgba(67,97,238,0.4);
-  --radius: 12px;
+  /* ---- Fonts (3 semantic roles) ---- */
+  --font-display: 'Unbounded', system-ui, sans-serif;   /* headlines, CTAs, distinctive impact */
+  --font-stamp: 'Oswald', system-ui, sans-serif;        /* defeat/loupe stamps (condensed fits long RU) */
+  --font-body: 'Onest', system-ui, sans-serif;          /* prose, UI text */
+  --font-data: 'Oswald', system-ui, sans-serif;         /* scoreboard, ranks, metrics */
+
+  /* ---- Surfaces (neutrals tinted toward brand blue-violet 285) ---- */
+  --bg-deep: oklch(0.11 0.018 285);
+  --bg-raise: oklch(0.15 0.022 285);
+  --bg-card: oklch(0.17 0.024 285);
+  --bg-card-hover: oklch(0.21 0.028 285);
+
+  /* ---- Accents (OKLCH, chroma eased near extremes) ---- */
+  --accent-red: oklch(0.62 0.205 22);
+  --accent-red-bright: oklch(0.68 0.22 25);
+  --accent-gold: oklch(0.84 0.165 82);
+  --accent-blue: oklch(0.58 0.205 266);
+  --accent-blue-bright: oklch(0.66 0.20 264);
+  --accent-green: oklch(0.74 0.18 150);
+
+  /* ---- Text (tinted, never pure white) ---- */
+  --text-primary: oklch(0.97 0.006 285);
+  --text-muted: oklch(0.70 0.022 285);
+  --text-faint: oklch(0.52 0.026 285);
+
+  --border-card: oklch(0.30 0.02 285 / 0.5);
+  --border-soft: oklch(0.40 0.02 285 / 0.25);
+
+  /* ---- Glows (color-tinted, used purposefully) ---- */
+  --glow-red: 0 0 32px oklch(0.62 0.205 22 / 0.55), 0 0 8px oklch(0.62 0.205 22 / 0.4);
+  --glow-gold: 0 0 28px oklch(0.84 0.165 82 / 0.5), 0 0 6px oklch(0.84 0.165 82 / 0.35);
+  --glow-blue: 0 0 24px oklch(0.58 0.205 266 / 0.45);
+
+  /* ---- Premium layered shadows (tinted dark, not pure black) ---- */
+  --shadow-sm:
+    0 1px 2px oklch(0.05 0.02 285 / 0.4),
+    0 2px 6px oklch(0.05 0.02 285 / 0.3);
+  --shadow-md:
+    0 2px 4px oklch(0.05 0.02 285 / 0.35),
+    0 8px 16px oklch(0.05 0.02 285 / 0.4),
+    0 16px 32px oklch(0.05 0.02 285 / 0.25);
+  --shadow-lg:
+    0 4px 8px oklch(0.04 0.02 285 / 0.4),
+    0 16px 32px oklch(0.04 0.02 285 / 0.45),
+    0 32px 64px oklch(0.04 0.02 285 / 0.3);
+
+  /* ---- 4pt spacing scale ---- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 48px;
+
+  --radius: 14px;
+  --radius-sm: 9px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,66 +68,132 @@ html, body, #root {
   overflow: hidden;
   background: var(--bg-deep);
   color: var(--text-primary);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-body);
   -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-.screen {
-  position: absolute;
+/* ---- Film grain overlay: kills the flat "digital" look ---- */
+body::before {
+  content: '';
+  position: fixed;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 24px 20px 40px;
-  min-height: 100%;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-h1, h2 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.04em; }
+/* ---- Vignette: cinematic depth toward edges ---- */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  background: radial-gradient(125% 100% at 50% 0%,
+    transparent 55%,
+    oklch(0.05 0.02 285 / 0.45) 100%);
+}
+
+h1, h2 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
 
 .btn-primary {
+  position: relative;
   width: 100%;
-  padding: 16px;
-  background: var(--accent-blue);
-  color: #fff;
+  padding: 17px;
+  background:
+    linear-gradient(180deg,
+      var(--accent-blue-bright),
+      var(--accent-blue));
+  color: oklch(0.99 0.01 266);
   border: none;
   border-radius: var(--radius);
-  font-family: 'Oswald', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   cursor: pointer;
-  transition: opacity 0.15s, transform 0.1s;
+  overflow: hidden;
+  box-shadow:
+    var(--shadow-md),
+    inset 0 1px 0 oklch(1 0 0 / 0.25),
+    inset 0 -2px 6px oklch(0.2 0.1 266 / 0.4);
+  transition: transform 0.18s var(--ease-out-expo), box-shadow 0.18s var(--ease-out-expo);
 }
-.btn-primary:active { transform: scale(0.97); }
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,
+    transparent 30%,
+    oklch(1 0 0 / 0.14) 50%,
+    transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.btn-primary:hover::after { transform: translateX(120%); }
+.btn-primary:active { transform: scale(0.975) translateY(1px); }
 
 .btn-ghost {
   background: transparent;
   border: 1px solid var(--border-card);
   color: var(--text-muted);
-  padding: 10px 16px;
+  padding: 11px 18px;
   border-radius: var(--radius);
   font-size: 14px;
+  font-family: var(--font-body);
   cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
 }
+.btn-ghost:active { color: var(--text-primary); border-color: var(--border-soft); }
 
 .card {
-  background: var(--bg-card);
+  position: relative;
+  background:
+    linear-gradient(180deg,
+      var(--bg-card),
+      var(--bg-raise));
   border: 1px solid var(--border-card);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 oklch(1 0 0 / 0.04);
 }
 
 .tag {
   display: inline-block;
-  padding: 3px 8px;
-  border-radius: 6px;
+  padding: 4px 9px;
+  border-radius: 7px;
   font-size: 11px;
   font-weight: 600;
+  font-family: var(--font-data);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
-.tag-red { background: rgba(230,57,70,0.15); color: var(--accent-red); }
-.tag-gold { background: rgba(255,183,3,0.15); color: var(--accent-gold); }
-.tag-blue { background: rgba(67,97,238,0.15); color: var(--accent-blue); }
+.tag-red { background: oklch(0.62 0.205 22 / 0.16); color: var(--accent-red-bright); box-shadow: inset 0 0 0 1px oklch(0.62 0.205 22 / 0.25); }
+.tag-gold { background: oklch(0.84 0.165 82 / 0.15); color: var(--accent-gold); box-shadow: inset 0 0 0 1px oklch(0.84 0.165 82 / 0.25); }
+.tag-blue { background: oklch(0.58 0.205 266 / 0.16); color: var(--accent-blue-bright); box-shadow: inset 0 0 0 1px oklch(0.58 0.205 266 / 0.25); }
+
+/* ---- View Transitions: cinematic screen changes ---- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}

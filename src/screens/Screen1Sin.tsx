@@ -74,7 +74,7 @@ export const Screen1Sin = () => {
             }}
           >
             <div>
-              <p style={{ color: 'var(--accent-gold)', fontFamily: 'Oswald', fontSize: 20, fontWeight: 700, marginBottom: 12 }}>
+              <p style={{ color: 'var(--accent-gold)', fontFamily: 'var(--font-data)', fontSize: 20, fontWeight: 700, marginBottom: 12 }}>
                 Красиво.
               </p>
               <p style={{ color: 'var(--text-primary)', fontSize: 15, lineHeight: 1.7 }}>

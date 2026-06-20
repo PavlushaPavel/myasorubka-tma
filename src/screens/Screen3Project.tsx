@@ -85,7 +85,7 @@ export const Screen3Project = () => {
               animate={{ scale: 1, opacity: 1 }}
               style={{ textAlign: 'center' }}
             >
-              <div style={{ color: 'var(--accent-red)', fontFamily: 'Oswald', fontSize: 22, fontWeight: 700, textTransform: 'uppercase' }}>
+              <div style={{ color: 'var(--accent-red)', fontFamily: 'var(--font-data)', fontSize: 22, fontWeight: 700, textTransform: 'uppercase' }}>
                 Матч найден
               </div>
               <div style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>

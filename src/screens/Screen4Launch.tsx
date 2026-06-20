@@ -114,7 +114,7 @@ export const Screen4Launch = () => {
                   <MetricCounter key={i} metric={m} active={['metrics','cta'].includes(phase)} />
                 ))}
                 <div style={{ marginTop: 8, padding: '6px 12px', background: 'rgba(230,57,70,0.15)', borderRadius: 8, textAlign: 'center' }}>
-                  <span style={{ color: 'var(--accent-red)', fontFamily: 'Oswald', fontSize: 12, textTransform: 'uppercase' }}>
+                  <span style={{ color: 'var(--accent-red)', fontFamily: 'var(--font-data)', fontSize: 12, textTransform: 'uppercase' }}>
                     Promotion failed — До нормальных клиентов снова не дошёл
                   </span>
                 </div>

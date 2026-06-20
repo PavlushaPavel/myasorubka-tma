@@ -28,7 +28,7 @@ export const MatchCard = ({ profession }: Props) => (
       </div>
     ))}
     <div style={{ marginTop: 12, padding: '8px 12px', background: 'rgba(230,57,70,0.1)', borderRadius: 8, textAlign: 'center' }}>
-      <span style={{ color: 'var(--accent-red)', fontFamily: 'Oswald', fontWeight: 700, fontSize: 13, textTransform: 'uppercase' }}>Шанс победы: 7%</span>
+      <span style={{ color: 'var(--accent-red)', fontFamily: 'var(--font-data)', fontWeight: 700, fontSize: 13, textTransform: 'uppercase' }}>Шанс победы: 7%</span>
     </div>
   </div>
 )

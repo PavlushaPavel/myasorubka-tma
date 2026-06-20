@@ -81,7 +81,7 @@ export const Screen8Map = () => {
 
       {profession && (
         <div className="card" style={{ marginBottom: 24, border: '1px solid var(--accent-gold)' }}>
-          <div style={{ color: 'var(--accent-gold)', fontFamily: 'Oswald', fontSize: 14, fontWeight: 700, textTransform: 'uppercase', marginBottom: 12 }}>
+          <div style={{ color: 'var(--accent-gold)', fontFamily: 'var(--font-data)', fontSize: 14, fontWeight: 700, textTransform: 'uppercase', marginBottom: 12 }}>
             Я вышел из мясорубки
           </div>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: 'var(--text-muted)' }}>
@@ -107,7 +107,7 @@ export const Screen8Map = () => {
             <span key={i} className="tag tag-blue" style={{ fontSize: 11 }}>{d}</span>
           ))}
         </div>
-        <div style={{ color: 'var(--accent-gold)', fontFamily: 'Oswald', fontSize: 32, fontWeight: 700, marginBottom: 16 }}>
+        <div style={{ color: 'var(--accent-gold)', fontFamily: 'var(--font-data)', fontSize: 32, fontWeight: 700, marginBottom: 16 }}>
           3 999 ₽
         </div>
         <button
@@ -141,7 +141,7 @@ export const Screen8Map = () => {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 8, marginBottom: 12, fontSize: 12, textAlign: 'center' }}>
               {([['Переходы', 0], ['Прошли', 0], ['Купили', 0], ['Бабло', '0 ₽']] as const).map(([label, val]) => (
                 <div key={label} style={{ background: 'var(--bg-card)', borderRadius: 8, padding: 8 }}>
-                  <div style={{ color: 'var(--accent-gold)', fontFamily: 'Oswald', fontWeight: 700, fontSize: 16 }}>{val}</div>
+                  <div style={{ color: 'var(--accent-gold)', fontFamily: 'var(--font-data)', fontWeight: 700, fontSize: 16 }}>{val}</div>
                   <div style={{ color: 'var(--text-faint)', fontSize: 10, marginTop: 2 }}>{label}</div>
                 </div>
               ))}

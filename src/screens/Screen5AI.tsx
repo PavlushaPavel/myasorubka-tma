@@ -31,7 +31,7 @@ export const Screen5AI = () => {
       </div>
 
       <div className="card" style={{ marginBottom: 20 }}>
-        <p style={{ color: 'var(--accent-red)', fontFamily: 'Oswald', fontWeight: 700, fontSize: 14, textTransform: 'uppercase', marginBottom: 8 }}>
+        <p style={{ color: 'var(--accent-red)', fontFamily: 'var(--font-data)', fontWeight: 700, fontSize: 14, textTransform: 'uppercase', marginBottom: 8 }}>
           Но AI не спасает тупую задачу
         </p>
         <div style={{ marginBottom: 8 }}>
