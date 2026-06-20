@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { navigateScreen } from '../lib/navigateScreen'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PROFESSIONS } from '../data/professions'
 import { ProfessionCard } from '../components/ProfessionCard'
@@ -9,7 +10,6 @@ import type { ProfessionId } from '../types'
 export const Screen2Blame = () => {
   const [selected, setSelected] = useState<ProfessionId | null>(null)
   const setProfession = useAppStore(s => s.setProfession)
-  const goToScreen = useAppStore(s => s.goToScreen)
   const { select, impact } = useTelegramHaptics()
 
   const handleSelect = (id: string) => {
@@ -20,7 +20,7 @@ export const Screen2Blame = () => {
 
   const handleContinue = () => {
     impact('medium')
-    goToScreen(2)
+    navigateScreen(2)
   }
 
   return (

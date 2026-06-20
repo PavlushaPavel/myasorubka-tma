@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { navigateScreen } from '../lib/navigateScreen'
 import { motion } from 'framer-motion'
 import { useAppStore } from '../store/useAppStore'
 import { getProfession } from '../data/professions'
@@ -6,7 +7,6 @@ import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 
 export const Screen5AI = () => {
   const professionId = useAppStore(s => s.profession)
-  const goToScreen = useAppStore(s => s.goToScreen)
   const { impact } = useTelegramHaptics()
   const profession = professionId ? getProfession(professionId) : null
   const [tab, setTab] = useState<'before' | 'after'>('before')
@@ -91,7 +91,7 @@ export const Screen5AI = () => {
         </div>
       )}
 
-      <button className="btn-primary" onClick={() => { impact('medium'); goToScreen(5) }}>
+      <button className="btn-primary" onClick={() => { impact('medium'); navigateScreen(5) }}>
         Включить AI-штаб
       </button>
     </div>

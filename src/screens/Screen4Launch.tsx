@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { navigateScreen } from '../lib/navigateScreen'
 import { motion, AnimatePresence, useAnimationControls } from 'framer-motion'
 import { useAppStore } from '../store/useAppStore'
 import { getProfession } from '../data/professions'
@@ -21,7 +22,6 @@ const DARK = 'radial-gradient(120% 90% at 50% 38%, oklch(0.10 0.05 22 / 0.55), o
 export const Screen4Launch = () => {
   const professionId = useAppStore(s => s.profession)
   const finishDefeat = useAppStore(s => s.finishDefeat)
-  const goToScreen = useAppStore(s => s.goToScreen)
   const { impact } = useTelegramHaptics()
   const profession = professionId ? getProfession(professionId) : null
 
@@ -145,7 +145,7 @@ export const Screen4Launch = () => {
                   Ты не просто получил плохой результат.<br />
                   Ты получил удар по цене, уверенности и следующему проекту.
                 </p>
-                <button className="btn-primary" onClick={() => goToScreen(4)}>
+                <button className="btn-primary" onClick={() => navigateScreen(4)}>
                   Снять клеймо
                 </button>
               </motion.div>

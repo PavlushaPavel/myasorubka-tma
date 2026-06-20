@@ -1,4 +1,4 @@
-import { useAppStore } from '../store/useAppStore'
+import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 
 const FREE_ITEMS = [
@@ -22,7 +22,6 @@ const PAID_ITEMS = [
 ]
 
 export const Screen7Cash = () => {
-  const goToScreen = useAppStore(s => s.goToScreen)
   const { impact } = useTelegramHaptics()
 
   return (
@@ -64,7 +63,7 @@ export const Screen7Cash = () => {
         </div>
       ))}
 
-      <button className="btn-primary" style={{ marginTop: 8 }} onClick={() => { impact('medium'); goToScreen(7) }}>
+      <button className="btn-primary" style={{ marginTop: 8 }} onClick={() => { impact('medium'); navigateScreen(7) }}>
         Забрать карту, где меня сделают крайним
       </button>
     </div>

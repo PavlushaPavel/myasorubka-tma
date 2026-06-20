@@ -220,6 +220,37 @@ h1, h2 {
   animation-timing-function: var(--ease-out-expo);
 }
 
+/* circle reveal from the tap point (default forward nav) */
+html[data-vt='circle']::view-transition-new(root) {
+  animation: vtCircleIn 0.55s var(--ease-out-expo);
+  z-index: 2;
+}
+html[data-vt='circle']::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+@keyframes vtCircleIn {
+  from { clip-path: circle(0% at var(--vt-x, 50%) var(--vt-y, 50%)); }
+  to   { clip-path: circle(160% at var(--vt-x, 50%) var(--vt-y, 50%)); }
+}
+
+/* black curtain wipe top→bottom (launch → defeat) */
+html[data-vt='curtain']::view-transition-new(root) {
+  animation: vtCurtainIn 0.62s var(--ease-out-quint);
+  z-index: 2;
+}
+html[data-vt='curtain']::view-transition-old(root) {
+  animation: vtFadeOut 0.62s both;
+  z-index: 1;
+}
+@keyframes vtCurtainIn {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0% 0); }
+}
+@keyframes vtFadeOut {
+  to { opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

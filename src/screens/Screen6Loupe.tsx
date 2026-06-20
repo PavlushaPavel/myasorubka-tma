@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { navigateScreen } from '../lib/navigateScreen'
 import { motion } from 'framer-motion'
 import { useAppStore } from '../store/useAppStore'
 import { getProfession } from '../data/professions'
@@ -7,7 +8,6 @@ import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 
 export const Screen6Loupe = () => {
   const professionId = useAppStore(s => s.profession)
-  const goToScreen = useAppStore(s => s.goToScreen)
   const { impact } = useTelegramHaptics()
   const profession = professionId ? getProfession(professionId) : null
   const [loupeComplete, setLoupeComplete] = useState(false)
@@ -42,7 +42,7 @@ export const Screen6Loupe = () => {
 
       {loupeComplete && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ marginTop: 20 }}>
-          <button className="btn-primary" onClick={() => { impact('medium'); goToScreen(6) }}>
+          <button className="btn-primary" onClick={() => { impact('medium'); navigateScreen(6) }}>
             Показать, где деньги
           </button>
         </motion.div>

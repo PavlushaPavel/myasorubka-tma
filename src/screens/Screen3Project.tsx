@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { navigateScreen } from '../lib/navigateScreen'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAppStore } from '../store/useAppStore'
 import { getProfession } from '../data/professions'
@@ -17,7 +18,6 @@ type Phase = 'matching' | 'found' | 'card'
 export const Screen3Project = () => {
   const professionId = useAppStore(s => s.profession)
   const startMatch = useAppStore(s => s.startMatch)
-  const goToScreen = useAppStore(s => s.goToScreen)
   const { impact } = useTelegramHaptics()
   const profession = professionId ? getProfession(professionId) : null
 
@@ -103,7 +103,7 @@ export const Screen3Project = () => {
             <button
               className="btn-primary"
               style={{ marginTop: 20 }}
-              onClick={() => { impact('medium'); startMatch(); goToScreen(3) }}
+              onClick={() => { impact('medium'); startMatch(); navigateScreen(3, 'curtain') }}
             >
               Запустить как обычно
             </button>

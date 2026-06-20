@@ -1,10 +1,10 @@
 import { useState } from 'react'
+import { navigateScreen } from '../lib/navigateScreen'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAppStore } from '../store/useAppStore'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 
 export const Screen1Sin = () => {
-  const goToScreen = useAppStore(s => s.goToScreen)
   const setTookTheBait = useAppStore(s => s.setTookTheBait)
   const { impact } = useTelegramHaptics()
   const [showOverlay, setShowOverlay] = useState(false)
@@ -12,13 +12,13 @@ export const Screen1Sin = () => {
   const handleTake = () => {
     setTookTheBait(true)
     impact('heavy')
-    goToScreen(1)
+    navigateScreen(1)
   }
 
   const handleRefuse = () => {
     setTookTheBait(false)
     setShowOverlay(true)
-    setTimeout(() => goToScreen(1), 3000)
+    setTimeout(() => navigateScreen(1), 3000)
   }
 
   return (
