@@ -4,6 +4,7 @@ export const PROFESSIONS: Profession[] = [
   {
     id: 'director',
     label: 'Директолог',
+    blameSubject: 'Директолог',
     blameCard: 'Клики есть. Денег нет. Директ не работает.',
     stampText: 'Директ не работает',
     projectTitle: 'Фулфилмент для маркетплейсов',
@@ -61,6 +62,7 @@ export const PROFESSIONS: Profession[] = [
   {
     id: 'designer',
     label: 'Дизайнер',
+    blameSubject: 'Дизайнер',
     blameCard: 'Красиво, но не продаёт. Баннер не зацепил.',
     stampText: 'Баннер не зацепил',
     projectTitle: 'Баннер для B2B-услуги',
@@ -117,6 +119,7 @@ export const PROFESSIONS: Profession[] = [
   {
     id: 'landing',
     label: 'Лендинг-спец',
+    blameSubject: 'Лендинг',
     blameCard: 'Страница есть. Заявок мало. Лендос не конвертит.',
     stampText: 'Лендос не конвертит',
     projectTitle: 'Посадочная под рекламу',
@@ -173,6 +176,7 @@ export const PROFESSIONS: Profession[] = [
   {
     id: 'avito',
     label: 'Авитолог',
+    blameSubject: 'Авитолог',
     blameCard: 'Просмотры есть. Заявок мало. Авито не работает.',
     stampText: 'Авито не работает',
     projectTitle: 'Ремонт квартир под ключ',
@@ -229,6 +233,7 @@ export const PROFESSIONS: Profession[] = [
   {
     id: 'target',
     label: 'Таргетолог',
+    blameSubject: 'Таргетолог',
     blameCard: 'Креативы есть. Продаж нет. Таргет не работает.',
     stampText: 'Таргет не работает',
     projectTitle: 'Курс для мастеров красоты',

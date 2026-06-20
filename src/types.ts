@@ -20,6 +20,7 @@ export interface BeforeAfter {
 export interface Profession {
   id: ProfessionId
   label: string
+  blameSubject: string
   blameCard: string
   stampText: string
   projectTitle: string

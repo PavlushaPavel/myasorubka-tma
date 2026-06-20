@@ -108,7 +108,7 @@ export const Screen4Launch = () => {
             style={{ position: 'absolute', inset: 0, zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: ['metrics', 'cta'].includes(phase) ? 'flex-start' : 'center', padding: ['metrics', 'cta'].includes(phase) ? '32px 24px 24px' : 24, overflowY: 'auto' }}
           >
             <div style={{ textAlign: 'center', marginBottom: ['metrics', 'cta'].includes(phase) ? 18 : 24 }}>
-              <StampOverlay text={`${profession.label} виноват`} rotate={-4} />
+              <StampOverlay text={`${profession.blameSubject} виноват`} rotate={-4} />
               {['stamp2', 'metrics', 'cta'].includes(phase) && (
                 <div style={{ marginTop: 14 }}>
                   <StampOverlay text="Ты крайний" color="var(--accent-gold)" rotate={3} delay={0.05} />
