@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useAnimationControls } from 'framer-motion'
 import { useAppStore } from '../store/useAppStore'
 import { getProfession } from '../data/professions'
 import { ToxicChat } from '../components/ToxicChat'
@@ -16,6 +16,8 @@ const METRICS = [
   { label: 'MMR спеца', from: 0, to: -340, prefix: '' },
 ]
 
+const DARK = 'radial-gradient(120% 90% at 50% 38%, oklch(0.10 0.05 22 / 0.55), oklch(0.02 0.01 285 / 0.97))'
+
 export const Screen4Launch = () => {
   const professionId = useAppStore(s => s.profession)
   const finishDefeat = useAppStore(s => s.finishDefeat)
@@ -24,6 +26,7 @@ export const Screen4Launch = () => {
   const profession = professionId ? getProfession(professionId) : null
 
   const [phase, setPhase] = useState<Phase>('chat')
+  const shake = useAnimationControls()
 
   useEffect(() => {
     const schedule: [Phase, number][] = [
@@ -40,22 +43,34 @@ export const Screen4Launch = () => {
   }, [])
 
   useEffect(() => {
-    if (phase === 'stamp1') impact('heavy')
-    if (phase === 'stamp2') { setTimeout(() => impact('heavy'), 100) }
+    if (phase === 'stamp1') {
+      impact('heavy')
+      shake.start({ x: [0, -11, 9, -7, 4, -2, 0], y: [0, 5, -4, 2, 0] }, { duration: 0.45, ease: 'easeOut' })
+    }
+    if (phase === 'stamp2') {
+      setTimeout(() => impact('heavy'), 100)
+      shake.start({ x: [0, 9, -8, 6, -3, 0], y: [0, -4, 3, 0] }, { duration: 0.4, ease: 'easeOut' })
+    }
     if (phase === 'cta') finishDefeat()
   }, [phase])
 
   if (!profession) return null
 
+  const showStamps = ['stamp1', 'stamp2', 'metrics', 'cta'].includes(phase)
+  const showDark = ['darken', 'stamp1', 'stamp2', 'metrics', 'cta'].includes(phase)
+
   return (
-    <div className="screen" style={{ position: 'relative', overflow: 'hidden' }}>
+    <motion.div className="screen" animate={shake} style={{ position: 'relative', overflow: 'hidden' }}>
       <AnimatePresence>
-        {['darken','stamp1','stamp2','metrics','cta'].includes(phase) && (
+        {showDark && (
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.85 }}
-            style={{ position: 'absolute', inset: 0, background: '#000', zIndex: 1, pointerEvents: 'none' }}
-          />
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.45 }}
+            style={{ position: 'absolute', inset: 0, background: DARK, zIndex: 1, pointerEvents: 'none' }}
+          >
+            <div className="scanlines" />
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -63,21 +78,18 @@ export const Screen4Launch = () => {
         <p style={{ color: 'var(--text-faint)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 12 }}>
           Трафик пошёл…
         </p>
-        <ToxicChat messages={profession.toxicChat} active={['chat','typing','blame','darken'].includes(phase)} />
+        <ToxicChat messages={profession.toxicChat} active={['chat', 'typing', 'blame', 'darken'].includes(phase)} />
 
         <AnimatePresence>
-          {['typing','blame','darken'].includes(phase) && (
+          {['typing', 'blame', 'darken'].includes(phase) && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ marginTop: 12 }}>
               {phase === 'typing' ? (
                 <div style={{ color: 'var(--text-faint)', fontSize: 13 }}>
-                  Клиент печатает<motion.span
-                    animate={{ opacity: [0,1,0] }}
-                    transition={{ duration: 0.8, repeat: Infinity }}
-                  >…</motion.span>
+                  Клиент печатает<motion.span animate={{ opacity: [0, 1, 0] }} transition={{ duration: 0.8, repeat: Infinity }}>…</motion.span>
                 </div>
               ) : (
-                <div className="card" style={{ border: '1px solid var(--accent-red)' }}>
-                  <span style={{ color: 'var(--accent-red)', fontSize: 11, fontWeight: 600 }}>Клиент</span>
+                <div className="card" style={{ borderColor: 'var(--accent-red)' }}>
+                  <span style={{ color: 'var(--accent-red-bright)', fontSize: 11, fontWeight: 600 }}>Клиент</span>
                   <p style={{ color: 'var(--text-primary)', fontSize: 15, fontWeight: 600, marginTop: 4 }}>
                     {profession.clientBlame}
                   </p>
@@ -89,40 +101,46 @@ export const Screen4Launch = () => {
       </div>
 
       <AnimatePresence>
-        {['stamp1','stamp2','metrics','cta'].includes(phase) && (
+        {showStamps && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            style={{ position: 'absolute', inset: 0, zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24, overflowY: 'auto' }}
+            style={{ position: 'absolute', inset: 0, zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: ['metrics', 'cta'].includes(phase) ? 'flex-start' : 'center', padding: ['metrics', 'cta'].includes(phase) ? '32px 24px 24px' : 24, overflowY: 'auto' }}
           >
-            <div style={{ textAlign: 'center', marginBottom: 24 }}>
+            <div style={{ textAlign: 'center', marginBottom: ['metrics', 'cta'].includes(phase) ? 18 : 24 }}>
               <StampOverlay text="Инструмент виноват" rotate={-4} />
-              {['stamp2','metrics','cta'].includes(phase) && (
-                <div style={{ marginTop: 12 }}>
-                  <StampOverlay text="Ты крайний" color="var(--accent-gold)" rotate={3} delay={0.1} />
+              {['stamp2', 'metrics', 'cta'].includes(phase) && (
+                <div style={{ marginTop: 14 }}>
+                  <StampOverlay text="Ты крайний" color="var(--accent-gold)" rotate={3} delay={0.05} />
                 </div>
               )}
             </div>
 
-            {['metrics','cta'].includes(phase) && (
+            {['metrics', 'cta'].includes(phase) && (
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                style={{ width: '100%', background: 'rgba(15,15,26,0.9)', borderRadius: 12, padding: 16, marginBottom: 16 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="card"
+                style={{ width: '100%', marginBottom: 16, boxShadow: 'var(--shadow-lg)' }}
               >
                 {METRICS.map((m, i) => (
-                  <MetricCounter key={i} metric={m} active={['metrics','cta'].includes(phase)} />
+                  <MetricCounter key={i} metric={m} active delay={i * 160} />
                 ))}
-                <div style={{ marginTop: 8, padding: '6px 12px', background: 'rgba(230,57,70,0.15)', borderRadius: 8, textAlign: 'center' }}>
-                  <span style={{ color: 'var(--accent-red)', fontFamily: 'var(--font-data)', fontSize: 12, textTransform: 'uppercase' }}>
+                <motion.div
+                  animate={{ opacity: [0.7, 1, 0.7] }}
+                  transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+                  style={{ marginTop: 10, padding: '7px 12px', background: 'oklch(0.62 0.205 22 / 0.16)', borderRadius: 8, textAlign: 'center', boxShadow: 'inset 0 0 0 1px oklch(0.62 0.205 22 / 0.3)' }}
+                >
+                  <span style={{ color: 'var(--accent-red-bright)', fontFamily: 'var(--font-data)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                     Promotion failed — До нормальных клиентов снова не дошёл
                   </span>
-                </div>
+                </motion.div>
               </motion.div>
             )}
 
             {phase === 'cta' && (
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ width: '100%' }}>
+              <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} style={{ width: '100%' }}>
                 <p style={{ color: 'var(--text-muted)', fontSize: 13, textAlign: 'center', marginBottom: 16, lineHeight: 1.6 }}>
                   Ты не просто получил плохой результат.<br />
                   Ты получил удар по цене, уверенности и следующему проекту.
@@ -135,6 +153,6 @@ export const Screen4Launch = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   )
 }

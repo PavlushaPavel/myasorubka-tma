@@ -181,6 +181,38 @@ h1, h2 {
 .tag-gold { background: oklch(0.84 0.165 82 / 0.15); color: var(--accent-gold); box-shadow: inset 0 0 0 1px oklch(0.84 0.165 82 / 0.25); }
 .tag-blue { background: oklch(0.58 0.205 266 / 0.16); color: var(--accent-blue-bright); box-shadow: inset 0 0 0 1px oklch(0.58 0.205 266 / 0.25); }
 
+/* ---- Stamp impact: chromatic aberration settling into glow pulse ---- */
+@keyframes stampChroma {
+  0%   { text-shadow: 6px 0 oklch(0.75 0.18 200), -6px 0 oklch(0.62 0.22 22), 0 0 30px currentColor; }
+  55%  { text-shadow: 2px 0 oklch(0.75 0.18 200), -2px 0 oklch(0.62 0.22 22), 0 0 28px currentColor; }
+  100% { text-shadow: 0 0 28px currentColor, 0 2px 0 oklch(0.05 0.02 285 / 0.6); }
+}
+@keyframes stampGlow {
+  0%, 100% { filter: drop-shadow(0 0 5px currentColor); }
+  50%      { filter: drop-shadow(0 0 18px currentColor); }
+}
+.stamp-fx {
+  animation:
+    stampChroma 0.45s var(--ease-out-expo) both,
+    stampGlow 2.8s 0.45s ease-in-out infinite;
+}
+
+/* ---- Scanlines: CRT/defeat texture over the dark phase ---- */
+.scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    oklch(0 0 0 / 0.18) 0px,
+    oklch(0 0 0 / 0.18) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
 /* ---- View Transitions: cinematic screen changes ---- */
 ::view-transition-old(root),
 ::view-transition-new(root) {
