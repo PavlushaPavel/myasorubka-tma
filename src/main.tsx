@@ -9,6 +9,8 @@ declare global {
       WebApp?: {
         ready: () => void
         expand: () => void
+        version?: string
+        isVersionAtLeast?: (v: string) => boolean
         disableVerticalSwipes?: () => void
         showAlert?: (message: string) => void
         HapticFeedback?: {
@@ -25,8 +27,9 @@ const tg = window.Telegram?.WebApp
 tg?.ready()
 tg?.expand()
 // Telegram intercepts vertical swipes to minimize the app; disabling lets our
-// in-app screens scroll normally (Bot API 7.7+, optional chaining for older clients).
-tg?.disableVerticalSwipes?.()
+// in-app screens scroll normally. Only call it where supported (Bot API 7.7+) —
+// otherwise Telegram logs a "not supported in version X" console warning.
+if (tg?.isVersionAtLeast?.('7.7')) tg.disableVerticalSwipes?.()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
