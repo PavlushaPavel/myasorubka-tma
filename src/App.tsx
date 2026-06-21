@@ -2,47 +2,54 @@ import type { ReactElement } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useAppStore } from './store/useAppStore'
 import { navigateScreen } from './lib/navigateScreen'
+import { Stage00Splash } from './stages/Stage00Splash'
 import { Stage01Entry } from './stages/Stage01Entry'
+import { Stage02RoleSelect } from './stages/Stage02RoleSelect'
+import { Stage03QuickTest } from './stages/Stage03QuickTest'
+import { Stage04BigPreframe } from './stages/Stage04BigPreframe'
+import { Stage05Case1 } from './stages/Stage05Case1'
 import { Stage06Loupe } from './stages/Stage06Loupe'
+import { Stage07BlindLaunch } from './stages/Stage07BlindLaunch'
+import { Stage08PostLaunch } from './stages/Stage08PostLaunch'
+import { Stage09Verdict } from './stages/Stage09Verdict'
+import { Stage10Toolkit } from './stages/Stage10Toolkit'
+import { Stage11Telegram } from './stages/Stage11Telegram'
+import { Stage12ProofAI } from './stages/Stage12ProofAI'
+import { Stage13Video } from './stages/Stage13Video'
+import { Stage14Offer } from './stages/Stage14Offer'
+import { Stage15Bablo } from './stages/Stage15Bablo'
 
 const supportsVT = typeof document !== 'undefined' && 'startViewTransition' in document
 
-const STAGE_NAMES: Record<number, string> = {
-  0: 'Сплэш / внешний префрейм',
-  2: 'Выбор роли',
-  3: 'Быстрый тест',
-  4: 'Большой префрейм',
-  5: 'Дело №1 — цепочка',
-  7: 'Слепой запуск',
-  8: 'Проверка после запуска',
-  9: 'Вердикт',
-  10: 'Антислив-набор',
-  11: 'Telegram-хаб',
-  12: 'Proof AI',
-  13: 'Финальное видео',
-  14: 'Оффер «Лендос за вечер»',
-  15: 'Кнопка «Бабло»',
+const STAGES: Record<number, () => ReactElement> = {
+  0: Stage00Splash,
+  1: Stage01Entry,
+  2: Stage02RoleSelect,
+  3: Stage03QuickTest,
+  4: Stage04BigPreframe,
+  5: Stage05Case1,
+  6: Stage06Loupe,
+  7: Stage07BlindLaunch,
+  8: Stage08PostLaunch,
+  9: Stage09Verdict,
+  10: Stage10Toolkit,
+  11: Stage11Telegram,
+  12: Stage12ProofAI,
+  13: Stage13Video,
+  14: Stage14Offer,
+  15: Stage15Bablo,
 }
 
-const Placeholder = ({ stage }: { stage: number }) => (
-  <div className="screen" style={{ justifyContent: 'center', alignItems: 'center', gap: 14, textAlign: 'center' }}>
-    <span className="sys sys-cyan">STAGE {stage} · СКОРО</span>
-    <h2 style={{ fontSize: 26, color: 'var(--text)' }}>{STAGE_NAMES[stage] ?? 'Этап'}</h2>
-    <p style={{ color: 'var(--text-faint)', fontSize: 13 }}>Этот экран ещё собирается. Жми дальше, чтобы дойти до готовых.</p>
-    <button className="btn btn-primary" style={{ maxWidth: 280 }} onClick={() => navigateScreen(stage === 15 ? 1 : stage + 1)}>
-      {stage === 6 ? '' : stage === 15 ? '↺ В начало' : '→ Следующий этап'}
-    </button>
+const Fallback = () => (
+  <div className="screen" style={{ justifyContent: 'center', alignItems: 'center', gap: 14 }}>
+    <span className="sys sys-cyan">STAGE NOT FOUND</span>
+    <button className="btn btn-primary" style={{ maxWidth: 260 }} onClick={() => navigateScreen(0)}>↺ В начало</button>
   </div>
 )
 
-const STAGES: Record<number, () => ReactElement> = {
-  1: Stage01Entry,
-  6: Stage06Loupe,
-}
-
 export default function App() {
   const stage = useAppStore((s) => s.currentStage)
-  const Current = STAGES[stage] ?? (() => <Placeholder stage={stage} />)
+  const Current = STAGES[stage] ?? Fallback
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: 'var(--void)' }}>

@@ -34,7 +34,7 @@ const generateRefCode = (): string => {
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
-  currentStage: 1, // TODO: back to 0 once Stage 0 splash is built (preview opens on Entry)
+  currentStage: 0,
   role: null,
   quickTestKey: null,
   blindSelected: [],
