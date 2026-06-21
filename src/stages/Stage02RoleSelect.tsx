@@ -70,9 +70,10 @@ export const Stage02RoleSelect = () => {
                   <SystemLabel tone="amber">{code}</SystemLabel>
                   <div
                     style={{
+                      color: 'var(--text)',
                       fontFamily: 'var(--font-display)',
-                      fontWeight: 600,
-                      fontSize: 17,
+                      fontWeight: 700,
+                      fontSize: 18,
                       textTransform: 'uppercase',
                       letterSpacing: '0.02em',
                       marginTop: 4,

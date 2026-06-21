@@ -25,8 +25,8 @@
 
   /* ---- Text ---- */
   --text: #E7ECF3;
-  --text-muted: #9AA7B6;
-  --text-faint: #5C6878;
+  --text-muted: #AEB9C7;
+  --text-faint: #7C8794;
 
   --border: rgba(231, 236, 243, 0.10);
   --border-strong: rgba(231, 236, 243, 0.2);
@@ -51,6 +51,10 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Buttons must not fall back to the UA default black text on our dark surface.
+   Any button without an explicit color inherits the light body text instead. */
+button { color: inherit; font-family: inherit; }
 
 html, body, #root {
   height: 100%;
