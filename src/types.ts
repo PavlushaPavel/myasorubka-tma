@@ -4,24 +4,28 @@ export type RoleId = 'director' | 'avito' | 'vk' | 'creative' | 'landing'
 export interface ChoiceOption {
   key: string
   text: string
-  trap?: 'guess' | 'tool' | null // guess = гадаешь, tool = лечишь кнопку
+  trap?: 'guess' | 'tool' | 'wait' | 'test' | null
 }
 
-export interface PostLaunchBranch {
+/** Role-specific pre-launch practice: «что можно усилить до запуска». */
+export interface PreLaunchBranch {
   question: string
   options: ChoiceOption[]
   correctKeys: string[]
-  trapReaction: string   // shown if user picks a trap option
-  goodReaction: string   // shown if user picks mostly-correct
+  trapReaction: string
+  goodReaction: string
+  goodLabel: string // headline shown on the "good" reaction panel
 }
 
 export interface Role {
   id: RoleId
-  label: string          // "Директолог"
-  hire: string           // "Меня нанимают настроить рекламу, а потом спрашивают продажи."
-  stampWord: string      // for НЕ РАБОТАЕТ context / "Директ"
-  clientBlame: string    // "лиды из Директа холодные"
-  postLaunch: PostLaunchBranch
+  label: string // "Директолог"
+  hire: string // role-select card subtitle
+  hireTitle: string // §4 "Тебя взяли настраивать Директ"
+  setup: string[] // §4 "Ты собрал кампании. Запустил. …"
+  complaint: string // §4 "Заявки холодные. Продаж нет. Директ не работает."
+  stampWord: string // for stamp context / "Директ"
+  preLaunch: PreLaunchBranch
 }
 
 export interface ChainNode {
@@ -30,15 +34,12 @@ export interface ChainNode {
   hint: string
 }
 
-export interface RiskFlag {
-  text: string
-}
-
-export interface BlindFlag {
-  key: string
-  text: string
-  correct: boolean
-  trap?: 'guess' | 'tool' | null
+/** §8 Loupe: a client phrase that reveals a hidden reality when scanned. */
+export interface LoupePhrase {
+  id: string
+  phrase: string // visible client line, e.g. «Заявки холодные»
+  hidden: string[] // what the loupe reveals underneath
+  verdict: string // the takeaway under the reveal
 }
 
 export interface VerdictStatus {
@@ -51,7 +52,6 @@ export interface VerdictStatus {
 export interface Artifact {
   id: string
   kind: 'gpt' | 'extension' | 'checklist'
-  when: ('cta' | 'offer' | 'director' | 'handling' | 'all')[]
   title: string
   body: string
   cta: string

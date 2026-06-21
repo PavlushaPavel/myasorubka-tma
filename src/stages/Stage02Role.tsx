@@ -9,7 +9,7 @@ import { ROLES } from '../data/roles'
 import type { RoleId } from '../types'
 import { useAppStore } from '../store/useAppStore'
 
-export const Stage02RoleSelect = () => {
+export const Stage02Role = () => {
   const { impact, select } = useTelegramHaptics()
   const setRole = useAppStore((s) => s.setRole)
   const [selected, setSelected] = useState<RoleId | null>(null)
@@ -29,15 +29,11 @@ export const Stage02RoleSelect = () => {
       </Reveal>
 
       <Reveal delay={0.12}>
-        <h1 style={{ fontSize: 'clamp(24px, 7vw, 32px)', marginTop: 16, marginBottom: 8 }}>
-          {ROLE_SELECT.title}
-        </h1>
+        <h1 style={{ fontSize: 'clamp(24px, 7vw, 32px)', marginTop: 16, marginBottom: 8 }}>{ROLE_SELECT.title}</h1>
       </Reveal>
 
       <Reveal delay={0.2}>
-        <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.6, marginBottom: 18 }}>
-          {ROLE_SELECT.sub}
-        </p>
+        <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.6, marginBottom: 18 }}>{ROLE_SELECT.sub}</p>
       </Reveal>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -81,9 +77,7 @@ export const Stage02RoleSelect = () => {
                   >
                     {r.label}
                   </div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.45, marginTop: 4 }}>
-                    {r.hire}
-                  </div>
+                  <div style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.45, marginTop: 4 }}>{r.hire}</div>
                 </div>
                 <span
                   style={{

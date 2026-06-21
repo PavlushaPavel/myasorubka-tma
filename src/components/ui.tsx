@@ -1,6 +1,96 @@
 import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
+/* Forensic manifest: tidy 2-column itemised list — replaces dense chip walls
+   for long enumerations (что получаешь / должны были дать / AI может). */
+export const ManifestList = ({
+  items,
+  tone = 'cyan',
+  columns = 2,
+}: {
+  items: string[]
+  tone?: 'cyan' | 'amber' | 'red'
+  columns?: 1 | 2
+}) => {
+  const color = tone === 'red' ? 'var(--red-soft)' : tone === 'amber' ? 'var(--amber)' : 'var(--cyan)'
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: columns === 2 ? '1fr 1fr' : '1fr', columnGap: 16 }}>
+      {items.map((it, i) => (
+        <div
+          key={i}
+          style={{
+            display: 'flex',
+            gap: 8,
+            alignItems: 'flex-start',
+            padding: '8px 0',
+            borderTop: '1px solid var(--border)',
+          }}
+        >
+          <span style={{ color, fontSize: 10, lineHeight: 1.6, flexShrink: 0 }}>▸</span>
+          <span style={{ color: 'var(--text-muted)', fontSize: 12.5, lineHeight: 1.4 }}>{it}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/* Sealed evidence container: corner brackets + one-shot scan sweep on mount.
+   Used for artifact "UNLOCKED" reveals. */
+export const UnlockFrame = ({ children, accent = 'cyan' }: { children: ReactNode; accent?: 'cyan' | 'amber' }) => {
+  const c = accent === 'amber' ? 'var(--amber)' : 'var(--cyan)'
+  const brackets = [
+    { top: 4, left: 4, bt: 1, bl: 1 },
+    { top: 4, right: 4, bt: 1, br: 1 },
+    { bottom: 4, left: 4, bb: 1, bl: 1 },
+    { bottom: 4, right: 4, bb: 1, br: 1 },
+  ]
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 18, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      style={{ position: 'relative', overflow: 'hidden', borderRadius: 'var(--radius)' }}
+    >
+      {children}
+      {brackets.map((b, i) => (
+        <span
+          key={i}
+          style={{
+            position: 'absolute',
+            width: 16,
+            height: 16,
+            top: b.top,
+            left: b.left,
+            right: b.right,
+            bottom: b.bottom,
+            borderTop: b.bt ? `2px solid ${c}` : undefined,
+            borderBottom: b.bb ? `2px solid ${c}` : undefined,
+            borderLeft: b.bl ? `2px solid ${c}` : undefined,
+            borderRight: b.br ? `2px solid ${c}` : undefined,
+            opacity: 0.85,
+            pointerEvents: 'none',
+          }}
+        />
+      ))}
+      {/* one-shot reveal sweep */}
+      <motion.div
+        initial={{ y: '-110%' }}
+        animate={{ y: '210%' }}
+        transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          height: 70,
+          pointerEvents: 'none',
+          background: `linear-gradient(180deg, transparent, ${accent === 'amber' ? 'rgba(211,161,74,0.18)' : 'rgba(51,214,230,0.18)'} 80%, ${c})`,
+          opacity: 0.5,
+        }}
+      />
+    </motion.div>
+  )
+}
+
 /* Mono system label: CASE #001 · STATUS: OPEN */
 export const SystemLabel = ({
   children,
@@ -70,6 +160,37 @@ export const ProgressLevels = ({ current }: { current: number }) => (
     ))}
   </div>
 )
+
+/* Blur-in reaction panel: system label + bordered body (used after every test). */
+export const ReactionPanel = ({
+  label,
+  children,
+  tone = 'cyan',
+  delay = 0,
+}: {
+  label: string
+  children: ReactNode
+  tone?: 'cyan' | 'red' | 'amber'
+  delay?: number
+}) => {
+  const color = tone === 'red' ? 'var(--red)' : tone === 'amber' ? 'var(--amber)' : 'var(--cyan)'
+  const borderColor =
+    tone === 'red' ? 'rgba(212,59,54,0.35)' : tone === 'amber' ? 'rgba(211,161,74,0.35)' : 'rgba(51,214,230,0.35)'
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0)' }}
+      transition={{ duration: 0.5, delay }}
+      className="panel"
+      style={{ marginBottom: 16, borderColor }}
+    >
+      <SystemLabel tone={tone}>{label}</SystemLabel>
+      <p style={{ color: 'var(--text-muted)', fontSize: 13.5, lineHeight: 1.55, marginTop: 12, borderLeft: `2px solid ${color}`, paddingLeft: 12 }}>
+        {children}
+      </p>
+    </motion.div>
+  )
+}
 
 /* Selectable multiple-choice chip used across tests */
 export const OptionChip = ({

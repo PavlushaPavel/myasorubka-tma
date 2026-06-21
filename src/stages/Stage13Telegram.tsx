@@ -5,28 +5,20 @@ import { Reveal } from '../components/Reveal'
 import { CaseBar, ProgressLevels, SystemLabel } from '../components/ui'
 import { TELEGRAM } from '../data/content'
 
-export const Stage11Telegram = () => {
+export const Stage13Telegram = () => {
   const { impact, select } = useTelegramHaptics()
 
   return (
     <div className="screen">
       <CaseBar id="CASE #001" status="REMOTE HUB" tone="cyan" />
-      <div style={{ marginBottom: 16 }}>
-        <ProgressLevels current={4} />
-      </div>
+      <div style={{ marginBottom: 16 }}><ProgressLevels current={4} /></div>
 
       <Reveal>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
           <motion.span
             animate={{ opacity: [0.3, 1, 0.3] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              background: 'var(--cyan)',
-              boxShadow: '0 0 10px var(--cyan)',
-            }}
+            style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--cyan)', boxShadow: '0 0 10px var(--cyan)' }}
           />
           <SystemLabel tone="cyan">REMOTE HUB CONNECTED</SystemLabel>
         </div>
@@ -37,26 +29,11 @@ export const Stage11Telegram = () => {
           <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.6 }}>{TELEGRAM.body}</p>
         </div>
 
-        <button
-          className="btn btn-primary"
-          style={{ marginTop: 16, width: '100%' }}
-          onClick={() => {
-            impact('medium')
-            window.open(TELEGRAM.link, '_blank')
-          }}
-        >
+        <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => { impact('medium'); window.open(TELEGRAM.link, '_blank') }}>
           {TELEGRAM.cta}
         </button>
-
-        <button
-          className="btn btn-ghost"
-          style={{ marginTop: 10, width: '100%' }}
-          onClick={() => {
-            select()
-            navigateScreen(12, 'scan')
-          }}
-        >
-          Продолжить расследование
+        <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(14, 'scan') }}>
+          {TELEGRAM.nextCta}
         </button>
       </Reveal>
     </div>
