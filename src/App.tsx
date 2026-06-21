@@ -1,41 +1,40 @@
+import type { ReactElement } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useAppStore } from './store/useAppStore'
-import { Screen1Sin } from './screens/Screen1Sin'
-import { Screen2Blame } from './screens/Screen2Blame'
-import { Screen3Project } from './screens/Screen3Project'
-import { Screen4Launch } from './screens/Screen4Launch'
-import { Screen5AI } from './screens/Screen5AI'
-import { Screen6Loupe } from './screens/Screen6Loupe'
-import { Screen7Cash } from './screens/Screen7Cash'
-import { Screen8Map } from './screens/Screen8Map'
+import { navigateScreen } from './lib/navigateScreen'
+import { Stage01Entry } from './stages/Stage01Entry'
+import { Stage06Loupe } from './stages/Stage06Loupe'
 
-const SCREENS = [Screen1Sin, Screen2Blame, Screen3Project, Screen4Launch, Screen5AI, Screen6Loupe, Screen7Cash, Screen8Map]
-
-// When the View Transitions API drives screen changes, skip the Framer cross-slide
-// (it would fight the flushSync inside startViewTransition). Fall back to it otherwise.
 const supportsVT = typeof document !== 'undefined' && 'startViewTransition' in document
 
+const Placeholder = ({ stage }: { stage: number }) => (
+  <div className="screen" style={{ justifyContent: 'center', alignItems: 'center', gap: 16 }}>
+    <span className="sys sys-cyan">STAGE {stage} · TBD</span>
+    <button className="btn btn-primary" style={{ maxWidth: 260 }} onClick={() => navigateScreen(stage + 1)}>
+      → Следующий этап
+    </button>
+  </div>
+)
+
+const STAGES: Record<number, () => ReactElement> = {
+  1: Stage01Entry,
+  6: Stage06Loupe,
+}
+
 export default function App() {
-  const currentScreen = useAppStore(s => s.currentScreen)
-  const CurrentScreen = SCREENS[currentScreen] ?? Screen1Sin
+  const stage = useAppStore((s) => s.currentStage)
+  const Current = STAGES[stage] ?? (() => <Placeholder stage={stage} />)
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: 'var(--bg-deep)' }}>
+    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: 'var(--void)' }}>
       {supportsVT ? (
         <div style={{ position: 'absolute', inset: 0 }}>
-          <CurrentScreen />
+          <Current />
         </div>
       ) : (
         <AnimatePresence mode="wait">
-          <motion.div
-            key={currentScreen}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.22, ease: 'easeInOut' }}
-            style={{ position: 'absolute', inset: 0 }}
-          >
-            <CurrentScreen />
+          <motion.div key={stage} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} style={{ position: 'absolute', inset: 0 }}>
+            <Current />
           </motion.div>
         </AnimatePresence>
       )}

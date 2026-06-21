@@ -1,33 +1,60 @@
-export type ProfessionId = 'director' | 'designer' | 'landing' | 'avito' | 'target'
+export type RoleId = 'director' | 'avito' | 'vk' | 'creative' | 'landing'
 
-export interface ToxicMessage {
-  sender: string
+/** A multiple-choice option that can be "correct" or a labelled trap. */
+export interface ChoiceOption {
+  key: string
+  text: string
+  trap?: 'guess' | 'tool' | null // guess = гадаешь, tool = лечишь кнопку
+}
+
+export interface PostLaunchBranch {
+  question: string
+  options: ChoiceOption[]
+  correctKeys: string[]
+  trapReaction: string   // shown if user picks a trap option
+  goodReaction: string   // shown if user picks mostly-correct
+}
+
+export interface Role {
+  id: RoleId
+  label: string          // "Директолог"
+  hire: string           // "Меня нанимают настроить рекламу, а потом спрашивают продажи."
+  stampWord: string      // for НЕ РАБОТАЕТ context / "Директ"
+  clientBlame: string    // "лиды из Директа холодные"
+  postLaunch: PostLaunchBranch
+}
+
+export interface ChainNode {
+  id: string
+  label: string
+  hint: string
+}
+
+export interface RiskFlag {
   text: string
 }
 
-export interface SlipPointData {
+export interface BlindFlag {
+  key: string
+  text: string
+  correct: boolean
+  trap?: 'guess' | 'tool' | null
+}
+
+export interface VerdictStatus {
+  min: number
+  max: number
   title: string
-  clientSaid: string
-  reality: string
-  result: string
+  body: string
 }
 
-export interface BeforeAfter {
-  before: { headline: string; cta: string }
-  after: { headline: string; facts: string[]; cta: string }
-}
-
-export interface Profession {
-  id: ProfessionId
-  label: string
-  blameSubject: string
-  blameCard: string
-  stampText: string
-  projectTitle: string
-  rankLabel: string
-  clientSays: string[]
-  toxicChat: ToxicMessage[]
-  clientBlame: string
-  slivPoints: SlipPointData[]
-  beforeAfter: BeforeAfter
+export interface Artifact {
+  id: string
+  kind: 'gpt' | 'extension' | 'checklist'
+  when: ('cta' | 'offer' | 'director' | 'handling' | 'all')[]
+  title: string
+  body: string
+  cta: string
+  link?: string
+  teaser?: string
 }

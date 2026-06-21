@@ -1,26 +1,22 @@
 import { create } from 'zustand'
-import type { ProfessionId } from '../types'
-
-interface RefStats {
-  visits: number
-  played: number
-  bought: number
-  earned: number
-}
+import type { RoleId } from '../types'
+import { BLIND_FLAGS } from '../data/content'
+import { getRole } from '../data/roles'
 
 interface AppState {
-  currentScreen: number
-  profession: ProfessionId | null
-  tookTheBait: boolean
-  matchStarted: boolean
-  defeatAnimDone: boolean
+  currentStage: number
+  role: RoleId | null
+  quickTestKey: string | null
+  blindSelected: string[]
+  postLaunchSelected: string[]
   refCode: string
-  refStats: RefStats
-  goToScreen: (n: number) => void
-  setProfession: (id: ProfessionId) => void
-  setTookTheBait: (v: boolean) => void
-  startMatch: () => void
-  finishDefeat: () => void
+
+  goToStage: (n: number) => void
+  setRole: (id: RoleId) => void
+  setQuickTest: (key: string) => void
+  setBlindSelected: (keys: string[]) => void
+  setPostLaunchSelected: (keys: string[]) => void
+  score: () => number
 }
 
 const generateRefCode = (): string => {
@@ -37,17 +33,40 @@ const generateRefCode = (): string => {
   }
 }
 
-export const useAppStore = create<AppState>((set) => ({
-  currentScreen: 0,
-  profession: null,
-  tookTheBait: false,
-  matchStarted: false,
-  defeatAnimDone: false,
+export const useAppStore = create<AppState>((set, get) => ({
+  currentStage: 0,
+  role: null,
+  quickTestKey: null,
+  blindSelected: [],
+  postLaunchSelected: [],
   refCode: generateRefCode(),
-  refStats: { visits: 0, played: 0, bought: 0, earned: 0 },
-  goToScreen: (n) => set({ currentScreen: n }),
-  setProfession: (id) => set({ profession: id }),
-  setTookTheBait: (v) => set({ tookTheBait: v }),
-  startMatch: () => set({ matchStarted: true }),
-  finishDefeat: () => set({ defeatAnimDone: true }),
+
+  goToStage: (n) => set({ currentStage: n }),
+  setRole: (id) => set({ role: id }),
+  setQuickTest: (key) => set({ quickTestKey: key }),
+  setBlindSelected: (keys) => set({ blindSelected: keys }),
+  setPostLaunchSelected: (keys) => set({ postLaunchSelected: keys }),
+
+  // Verdict score 0–100 from blind-launch + post-launch correctness, penalised for traps.
+  score: () => {
+    const { blindSelected, postLaunchSelected, role } = get()
+    const r = role ? getRole(role) : undefined
+
+    const blindCorrect = BLIND_FLAGS.filter((f) => f.correct).map((f) => f.key)
+    const blindTraps = BLIND_FLAGS.filter((f) => f.trap).map((f) => f.key)
+    const postCorrect = r ? r.postLaunch.correctKeys : []
+    const postTraps = r ? r.postLaunch.options.filter((o) => o.trap).map((o) => o.key) : []
+
+    const totalCorrect = blindCorrect.length + postCorrect.length || 1
+    const gotCorrect =
+      blindSelected.filter((k) => blindCorrect.includes(k)).length +
+      postLaunchSelected.filter((k) => postCorrect.includes(k)).length
+    const trapsHit =
+      blindSelected.filter((k) => blindTraps.includes(k)).length +
+      postLaunchSelected.filter((k) => postTraps.includes(k)).length
+
+    const raw = gotCorrect / totalCorrect
+    const penalty = trapsHit * 0.12
+    return Math.max(0, Math.min(100, Math.round((raw - penalty) * 100)))
+  },
 }))
