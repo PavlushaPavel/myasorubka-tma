@@ -7,11 +7,30 @@ import { Stage06Loupe } from './stages/Stage06Loupe'
 
 const supportsVT = typeof document !== 'undefined' && 'startViewTransition' in document
 
+const STAGE_NAMES: Record<number, string> = {
+  0: 'Сплэш / внешний префрейм',
+  2: 'Выбор роли',
+  3: 'Быстрый тест',
+  4: 'Большой префрейм',
+  5: 'Дело №1 — цепочка',
+  7: 'Слепой запуск',
+  8: 'Проверка после запуска',
+  9: 'Вердикт',
+  10: 'Антислив-набор',
+  11: 'Telegram-хаб',
+  12: 'Proof AI',
+  13: 'Финальное видео',
+  14: 'Оффер «Лендос за вечер»',
+  15: 'Кнопка «Бабло»',
+}
+
 const Placeholder = ({ stage }: { stage: number }) => (
-  <div className="screen" style={{ justifyContent: 'center', alignItems: 'center', gap: 16 }}>
-    <span className="sys sys-cyan">STAGE {stage} · TBD</span>
-    <button className="btn btn-primary" style={{ maxWidth: 260 }} onClick={() => navigateScreen(stage + 1)}>
-      → Следующий этап
+  <div className="screen" style={{ justifyContent: 'center', alignItems: 'center', gap: 14, textAlign: 'center' }}>
+    <span className="sys sys-cyan">STAGE {stage} · СКОРО</span>
+    <h2 style={{ fontSize: 26, color: 'var(--text)' }}>{STAGE_NAMES[stage] ?? 'Этап'}</h2>
+    <p style={{ color: 'var(--text-faint)', fontSize: 13 }}>Этот экран ещё собирается. Жми дальше, чтобы дойти до готовых.</p>
+    <button className="btn btn-primary" style={{ maxWidth: 280 }} onClick={() => navigateScreen(stage === 15 ? 1 : stage + 1)}>
+      {stage === 6 ? '' : stage === 15 ? '↺ В начало' : '→ Следующий этап'}
     </button>
   </div>
 )
