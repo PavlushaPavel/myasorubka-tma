@@ -105,6 +105,10 @@ body::after {
   padding: 20px 18px 40px;
 }
 
+/* In the scrolling flex column, children must keep their natural height —
+   otherwise overflow triggers flex-shrink and crushes buttons/cards. */
+.screen > * { flex-shrink: 0; }
+
 h1, h2, h3 {
   font-family: var(--font-display);
   text-transform: uppercase;
