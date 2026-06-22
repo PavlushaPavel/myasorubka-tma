@@ -8,26 +8,49 @@ import { LOUPE, LOUPE_PHRASES } from '../data/content'
 
 /* scattered positions (% of board) — one per LOUPE_PHRASES entry */
 const POS = [
-  { x: 27, y: 16 },
-  { x: 72, y: 22 },
-  { x: 30, y: 45 },
-  { x: 73, y: 50 },
-  { x: 25, y: 75 },
+  { x: 27, y: 15 },
+  { x: 72, y: 21 },
+  { x: 30, y: 44 },
+  { x: 73, y: 49 },
+  { x: 25, y: 74 },
   { x: 71, y: 80 },
 ]
-const R = 90 // lens radius (px)
+const R = 88 // lens radius (px)
+const MAG = 1.32 // magnification factor under the glass
 
 export const Stage05Loupe = () => {
   const { impact, select } = useTelegramHaptics()
   const boardRef = useRef<HTMLDivElement>(null)
-  const [lens, setLens] = useState({ x: -999, y: -999 })
+  const clipRef = useRef<HTMLDivElement>(null) // clipped x-ray wrapper (defines visible circle)
+  const magRef = useRef<HTMLDivElement>(null) // magnified inner content
+  const lensRef = useRef<HTMLDivElement>(null) // glass ring
+  const pos = useRef({ x: 0, y: 0 })
+  const raf = useRef<number | null>(null)
+  const startedRef = useRef(false)
+  const scannedRef = useRef<string[]>([])
+
   const [active, setActive] = useState(false)
   const [scanned, setScanned] = useState<string[]>([])
 
-  // haptic tick whenever a new phrase is uncovered
-  useEffect(() => {
-    if (scanned.length) impact('light')
-  }, [scanned.length]) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => () => { if (raf.current) cancelAnimationFrame(raf.current) }, [])
+
+  // imperative tracking — no React re-render per pointer move
+  const apply = () => {
+    raf.current = null
+    const { x, y } = pos.current
+    const clip = `circle(${R}px at ${x}px ${y}px)`
+    if (clipRef.current) {
+      clipRef.current.style.clipPath = clip
+      clipRef.current.style.setProperty('-webkit-clip-path', clip)
+      clipRef.current.style.opacity = '1'
+    }
+    if (magRef.current) magRef.current.style.transformOrigin = `${x}px ${y}px`
+    if (lensRef.current) {
+      lensRef.current.style.left = `${x}px`
+      lensRef.current.style.top = `${y}px`
+      lensRef.current.style.opacity = '1'
+    }
+  }
 
   const move = (clientX: number, clientY: number) => {
     const el = boardRef.current
@@ -35,18 +58,22 @@ export const Stage05Loupe = () => {
     const r = el.getBoundingClientRect()
     const x = clientX - r.left
     const y = clientY - r.top
-    setLens({ x, y })
-    setActive(true)
-    setScanned((prev) => {
-      const add: string[] = []
-      LOUPE_PHRASES.forEach((p, i) => {
-        if (prev.includes(p.id)) return
-        const px = (POS[i].x / 100) * r.width
-        const py = (POS[i].y / 100) * r.height
-        if (Math.hypot(px - x, py - y) < R * 0.85) add.push(p.id)
-      })
-      return add.length ? [...prev, ...add] : prev
-    })
+    pos.current = { x, y }
+    if (!startedRef.current) { startedRef.current = true; setActive(true) }
+    if (raf.current == null) raf.current = requestAnimationFrame(apply)
+
+    // scan detection — fire only when a NEW phrase enters the glass
+    for (let i = 0; i < LOUPE_PHRASES.length; i++) {
+      const p = LOUPE_PHRASES[i]
+      if (scannedRef.current.includes(p.id)) continue
+      const px = (POS[i].x / 100) * r.width
+      const py = (POS[i].y / 100) * r.height
+      if (Math.hypot(px - x, py - y) < R * 0.78) {
+        scannedRef.current = [...scannedRef.current, p.id]
+        setScanned(scannedRef.current)
+        impact('light')
+      }
+    }
   }
 
   const onPointerMove = (e: React.PointerEvent) => move(e.clientX, e.clientY)
@@ -58,7 +85,6 @@ export const Stage05Loupe = () => {
   const count = scanned.length
   const total = LOUPE_PHRASES.length
   const canContinue = count >= 3
-  const clip = active ? `circle(${R}px at ${lens.x}px ${lens.y}px)` : 'circle(0px at 50% 50%)'
 
   return (
     <div className="screen">
@@ -73,8 +99,8 @@ export const Stage05Loupe = () => {
       </Reveal>
 
       <Reveal delay={0.16}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-          <SystemLabel tone="cyan">SURFACE — ЧТО ГОВОРИТ КЛИЕНТ</SystemLabel>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+          <SystemLabel tone="amber">SURFACE — СЛОВА КЛИЕНТА</SystemLabel>
           <SystemLabel tone={count === total ? 'cyan' : 'amber'}>{count}/{total} ВСКРЫТО</SystemLabel>
         </div>
       </Reveal>
@@ -96,7 +122,7 @@ export const Stage05Loupe = () => {
           backgroundSize: '28px 28px, 28px 28px, 100% 100%',
           touchAction: 'none',
           cursor: 'none',
-          marginBottom: 14,
+          marginBottom: 10,
           boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5)',
         }}
       >
@@ -131,7 +157,6 @@ export const Stage05Loupe = () => {
             >
               «{p.phrase}»
             </div>
-            {/* persistent red flag once swept — builds up the "problem layer" */}
             <AnimatePresence>
               {scanned.includes(p.id) && (
                 <motion.div
@@ -139,10 +164,7 @@ export const Stage05Loupe = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   style={{ marginTop: 5, display: 'flex', justifyContent: 'center' }}
                 >
-                  <span
-                    className="tag tag-red"
-                    style={{ fontSize: 9, padding: '2px 6px' }}
-                  >
+                  <span className="tag tag-red" style={{ fontSize: 9, padding: '2px 6px' }}>
                     <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--red)', boxShadow: '0 0 6px var(--red)' }} />
                     RED FLAG
                   </span>
@@ -152,84 +174,93 @@ export const Stage05Loupe = () => {
           </div>
         ))}
 
-        {/* REALITY X-RAY: revealed only inside the lens circle */}
+        {/* REALITY X-RAY — clipped to the glass circle, content magnified around lens centre */}
         <div
+          ref={clipRef}
           style={{
             position: 'absolute',
             inset: 0,
             pointerEvents: 'none',
-            clipPath: clip,
-            WebkitClipPath: clip,
-            background: 'radial-gradient(circle at center, rgba(46,10,12,0.97), rgba(22,8,10,0.94))',
-            transition: active ? 'none' : 'clip-path 0.3s',
+            opacity: 0,
+            clipPath: 'circle(0px at 50% 50%)',
+            WebkitClipPath: 'circle(0px at 50% 50%)',
+            transition: 'opacity 0.18s',
           }}
         >
-          {LOUPE_PHRASES.map((p, i) => (
-            <div
-              key={p.id}
-              style={{
-                position: 'absolute',
-                left: `${POS[i].x}%`,
-                top: `${POS[i].y}%`,
-                transform: 'translate(-50%, -50%)',
-                width: 150,
-              }}
-            >
+          <div
+            ref={magRef}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              transform: `scale(${MAG})`,
+              transformOrigin: '50% 50%',
+              background: 'radial-gradient(circle at center, rgba(58,10,12,0.97), rgba(24,8,10,0.95))',
+            }}
+          >
+            {LOUPE_PHRASES.map((p, i) => (
               <div
+                key={p.id}
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 10,
-                  letterSpacing: '0.04em',
-                  color: 'var(--red-soft)',
-                  textTransform: 'uppercase',
-                  marginBottom: 5,
+                  position: 'absolute',
+                  left: `${POS[i].x}%`,
+                  top: `${POS[i].y}%`,
+                  transform: 'translate(-50%, -50%)',
+                  width: 152,
                 }}
               >
-                ⚑ {p.phrase}
-              </div>
-              {p.hidden.map((h, j) => (
-                <div
-                  key={j}
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 10.5,
-                    lineHeight: 1.4,
-                    color: '#F2C9C6',
-                    paddingLeft: 8,
-                    borderLeft: '2px solid rgba(212,59,54,0.5)',
-                    marginBottom: 3,
-                  }}
-                >
-                  {h}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 5 }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.1em', color: '#07090d', background: 'var(--red)', padding: '1px 4px', borderRadius: 2, fontWeight: 700 }}>CRITICAL</span>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9.5, color: 'var(--red-soft)', textTransform: 'uppercase', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>«{p.phrase}»</span>
                 </div>
-              ))}
-            </div>
-          ))}
-        </div>
-
-        {/* LENS ring + crosshair */}
-        {active && (
+                {p.hidden.map((h, j) => (
+                  <div key={j} style={{ display: 'flex', gap: 5, alignItems: 'flex-start', marginBottom: 3 }}>
+                    <span style={{ color: 'var(--red)', fontSize: 10, lineHeight: 1.4, flexShrink: 0, fontWeight: 700 }}>✕</span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, lineHeight: 1.4, color: '#F4CFCC' }}>{h}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+          {/* scan line inside the glass */}
           <div
             style={{
               position: 'absolute',
-              left: lens.x,
-              top: lens.y,
-              width: R * 2,
-              height: R * 2,
-              transform: 'translate(-50%, -50%)',
-              borderRadius: '50%',
-              border: '2px solid var(--cyan)',
-              boxShadow: '0 0 26px rgba(51,214,230,0.55), inset 0 0 30px rgba(51,214,230,0.22)',
-              pointerEvents: 'none',
+              left: 0,
+              right: 0,
+              height: 50,
+              background: 'linear-gradient(180deg, transparent, rgba(212,59,54,0.22) 80%, rgba(212,59,54,0.8))',
+              animation: 'scanSweep 1.8s linear infinite',
+              mixBlendMode: 'screen',
             }}
-          >
-            <span style={{ position: 'absolute', left: '50%', top: 8, transform: 'translateX(-50%)', fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.12em', color: 'var(--cyan)' }}>REALITY</span>
-            <span style={{ position: 'absolute', left: '50%', top: '50%', width: 14, height: 1, background: 'rgba(51,214,230,0.6)', transform: 'translate(-50%,-50%)' }} />
-            <span style={{ position: 'absolute', left: '50%', top: '50%', width: 1, height: 14, background: 'rgba(51,214,230,0.6)', transform: 'translate(-50%,-50%)' }} />
-            {/* grip handle */}
-            <span style={{ position: 'absolute', right: -14, bottom: -14, width: 22, height: 4, borderRadius: 2, background: 'var(--cyan)', transform: 'rotate(45deg)', boxShadow: '0 0 10px var(--cyan)' }} />
-          </div>
-        )}
+          />
+        </div>
+
+        {/* GLASS ring + crosshair + specular highlight */}
+        <div
+          ref={lensRef}
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            width: R * 2,
+            height: R * 2,
+            transform: 'translate(-50%, -50%)',
+            borderRadius: '50%',
+            border: '2px solid var(--cyan)',
+            boxShadow: '0 0 30px rgba(51,214,230,0.55), inset 0 0 34px rgba(51,214,230,0.18)',
+            pointerEvents: 'none',
+            opacity: 0,
+            transition: 'opacity 0.18s',
+          }}
+        >
+          {/* glass specular */}
+          <span style={{ position: 'absolute', inset: 3, borderRadius: '50%', background: 'radial-gradient(120% 90% at 30% 18%, rgba(255,255,255,0.18), transparent 45%)', pointerEvents: 'none' }} />
+          <span style={{ position: 'absolute', left: '50%', top: 9, transform: 'translateX(-50%)', fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.14em', color: 'var(--cyan)' }}>X-RAY</span>
+          <span style={{ position: 'absolute', left: '50%', top: '50%', width: 13, height: 1, background: 'rgba(51,214,230,0.55)', transform: 'translate(-50%,-50%)' }} />
+          <span style={{ position: 'absolute', left: '50%', top: '50%', width: 1, height: 13, background: 'rgba(51,214,230,0.55)', transform: 'translate(-50%,-50%)' }} />
+          {/* grip handle */}
+          <span style={{ position: 'absolute', right: -16, bottom: -16, width: 26, height: 5, borderRadius: 3, background: 'var(--cyan)', transform: 'rotate(45deg)', boxShadow: '0 0 10px var(--cyan)' }} />
+        </div>
 
         {/* idle hint */}
         {!active && (
@@ -237,7 +268,7 @@ export const Stage05Loupe = () => {
             <motion.div
               animate={{ scale: [1, 1.12, 1], opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              style={{ width: 70, height: 70, borderRadius: '50%', border: '2px solid var(--cyan)', boxShadow: '0 0 22px rgba(51,214,230,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26 }}
+              style={{ width: 72, height: 72, borderRadius: '50%', border: '2px solid var(--cyan)', boxShadow: '0 0 22px rgba(51,214,230,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26 }}
             >
               🔍
             </motion.div>
@@ -245,6 +276,10 @@ export const Stage05Loupe = () => {
           </div>
         )}
       </div>
+
+      <p className="sys" style={{ textAlign: 'center', fontSize: 10.5, color: 'var(--text-faint)', marginBottom: 14 }}>
+        Сверху — слова клиента. Под лупой — что на самом деле.
+      </p>
 
       {/* readable record of what was uncovered */}
       <AnimatePresence>
