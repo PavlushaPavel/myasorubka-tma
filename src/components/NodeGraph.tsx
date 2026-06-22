@@ -45,7 +45,7 @@ export const NodeGraph = ({ nodes, breakFrom = -1 }: Props) => (
             </div>
             <div
               className="panel"
-              style={{ flex: 1, padding: '10px 14px', borderColor: broken ? 'rgba(212,59,54,0.35)' : 'var(--border)' }}
+              style={{ flex: 1, padding: '10px 14px', borderColor: broken ? 'rgba(255,42,42,0.35)' : 'var(--border)' }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
                 <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.02em' }}>

@@ -29,12 +29,12 @@ export const Stage15Video = () => {
       </Reveal>
 
       <Reveal delay={0.1}>
-        <button onClick={playVideo} style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', borderRadius: 'var(--radius)', border: '1px solid rgba(51,214,230,0.4)', background: 'radial-gradient(circle at 50% 45%, rgba(51,214,230,0.12), rgba(7,18,22,0.92))', boxShadow: 'var(--glow-cyan)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+        <button onClick={playVideo} style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', borderRadius: 'var(--radius)', border: '1px solid rgba(0,217,255,0.4)', background: 'radial-gradient(circle at 50% 45%, rgba(0,217,255,0.12), rgba(7,18,22,0.92))', boxShadow: 'var(--glow-cyan)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
           <span style={{ ...corner({ top: 8, left: 8, borderRightWidth: 0, borderBottomWidth: 0, borderWidth: 2 }) }} />
           <span style={{ ...corner({ top: 8, right: 8, borderLeftWidth: 0, borderBottomWidth: 0, borderWidth: 2 }) }} />
           <span style={{ ...corner({ bottom: 8, left: 8, borderRightWidth: 0, borderTopWidth: 0, borderWidth: 2 }) }} />
           <span style={{ ...corner({ bottom: 8, right: 8, borderLeftWidth: 0, borderTopWidth: 0, borderWidth: 2 }) }} />
-          <motion.span animate={{ scale: [1, 1.06, 1] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }} style={{ width: 64, height: 64, borderRadius: '50%', border: '2px solid var(--cyan)', background: 'rgba(51,214,230,0.14)', boxShadow: 'var(--glow-cyan)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: 'var(--cyan)', paddingLeft: 4 }}>▶</motion.span>
+          <motion.span animate={{ scale: [1, 1.06, 1] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }} style={{ width: 64, height: 64, borderRadius: '50%', border: '2px solid var(--cyan)', background: 'rgba(0,217,255,0.14)', boxShadow: 'var(--glow-cyan)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: 'var(--cyan)', paddingLeft: 4 }}>▶</motion.span>
           <span style={{ position: 'absolute', bottom: 12, fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', color: 'var(--ice)' }}>VIDEO</span>
         </button>
       </Reveal>
@@ -55,14 +55,14 @@ export const Stage15Video = () => {
       {/* bad vs good prompt */}
       <Reveal delay={0.2}>
         <div style={{ display: 'grid', gap: 10, marginTop: 16 }}>
-          <div className="panel" style={{ borderColor: 'rgba(212,59,54,0.4)', background: 'rgba(212,59,54,0.05)' }}>
+          <div className="panel" style={{ borderColor: 'rgba(255,42,42,0.4)', background: 'rgba(255,42,42,0.05)' }}>
             <SystemLabel tone="red">ВОДЯНАЯ ЗАДАЧА</SystemLabel>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, lineHeight: 1.6, color: 'var(--text-muted)', marginTop: 10 }}>{VIDEO.badPrompt}</p>
             <p style={{ fontSize: 13, lineHeight: 1.5, color: 'var(--text-faint)', marginTop: 10, paddingTop: 10, borderTop: '1px solid var(--border)' }}>
               → {VIDEO.badResult}
             </p>
           </div>
-          <div className="panel" style={{ borderColor: 'rgba(51,214,230,0.4)', background: 'rgba(51,214,230,0.05)' }}>
+          <div className="panel" style={{ borderColor: 'rgba(0,217,255,0.4)', background: 'rgba(0,217,255,0.05)' }}>
             <SystemLabel tone="cyan">НОРМАЛЬНАЯ ЗАДАЧА</SystemLabel>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, lineHeight: 1.6, color: 'var(--ice)', marginTop: 10 }}>{VIDEO.goodPrompt}</p>
           </div>
@@ -102,7 +102,7 @@ export const Stage15Video = () => {
 
       {/* money block */}
       <Reveal delay={0.35}>
-        <div className="panel" style={{ marginTop: 16, borderColor: 'rgba(211,161,74,0.45)', background: 'rgba(211,161,74,0.05)' }}>
+        <div className="panel" style={{ marginTop: 16, borderColor: 'rgba(255,177,59,0.45)', background: 'rgba(255,177,59,0.05)' }}>
           <SystemLabel tone="amber">{VIDEO.moneyTitle.toUpperCase()}</SystemLabel>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, margin: '12px 0' }}>
             {VIDEO.money.map((m) => (

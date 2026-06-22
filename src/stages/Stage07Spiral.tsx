@@ -26,7 +26,7 @@ export const Stage07Spiral = () => {
       </div>
 
       <Reveal delay={0.15 + SPIRAL.dialogue.length * 0.25}>
-        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(212,59,54,0.35)' }}>
+        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(255,42,42,0.35)' }}>
           <p style={{ color: 'var(--text)', fontSize: 14.5, lineHeight: 1.55 }}>{SPIRAL.tail}</p>
         </div>
       </Reveal>

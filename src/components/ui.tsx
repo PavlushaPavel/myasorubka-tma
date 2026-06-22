@@ -21,14 +21,19 @@ export const ChatBubble = ({
       transition={{ delay, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       style={{
         alignSelf: isClient ? 'flex-start' : 'flex-end',
-        maxWidth: '86%',
-        background: isClient ? (harsh ? 'rgba(212,59,54,0.12)' : 'var(--surface-2)') : 'rgba(51,214,230,0.12)',
-        border: `1px solid ${isClient ? (harsh ? 'rgba(212,59,54,0.4)' : 'var(--border)') : 'rgba(51,214,230,0.35)'}`,
-        borderRadius: isClient ? '4px 14px 14px 14px' : '14px 4px 14px 14px',
-        padding: '10px 13px',
-        color: 'var(--text)',
-        fontSize: 14,
-        lineHeight: 1.45,
+        maxWidth: '88%',
+        background: isClient
+          ? (harsh ? 'linear-gradient(90deg, rgba(255,42,42,0.18), rgba(15,19,26,0.9))' : 'rgba(15,19,26,0.9)')
+          : 'rgba(0,217,255,0.1)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderLeft: isClient ? `3px solid ${harsh ? 'var(--red)' : 'var(--red-dark)'}` : '1px solid rgba(0,217,255,0.3)',
+        borderRight: isClient ? '1px solid rgba(255,255,255,0.08)' : '3px solid var(--cyan)',
+        borderRadius: 'var(--radius-sm)',
+        padding: '11px 14px',
+        color: isClient ? 'var(--text)' : 'var(--ice)',
+        fontFamily: 'var(--font-mono)',
+        fontSize: 13,
+        lineHeight: 1.5,
         boxShadow: 'var(--shadow-md)',
       }}
     >
@@ -135,7 +140,7 @@ export const UnlockFrame = ({ children, accent = 'cyan' }: { children: ReactNode
           right: 0,
           height: 70,
           pointerEvents: 'none',
-          background: `linear-gradient(180deg, transparent, ${accent === 'amber' ? 'rgba(211,161,74,0.18)' : 'rgba(51,214,230,0.18)'} 80%, ${c})`,
+          background: `linear-gradient(180deg, transparent, ${accent === 'amber' ? 'rgba(255,177,59,0.18)' : 'rgba(0,217,255,0.18)'} 80%, ${c})`,
           opacity: 0.5,
         }}
       />
@@ -179,7 +184,7 @@ export const Stamp = ({ text, delay = 0 }: { text: string; delay?: number }) => 
       display: 'inline-block',
       transform: 'rotate(-5deg)',
       boxShadow: 'var(--glow-red)',
-      textShadow: '0 0 22px rgba(212,59,54,0.6)',
+      textShadow: '0 0 22px rgba(255,42,42,0.6)',
     }}
   >
     {text}
@@ -205,7 +210,7 @@ export const ProgressLevels = ({ current }: { current: number }) => (
           height: 3,
           borderRadius: 2,
           background: n <= current ? 'var(--cyan)' : 'rgba(231,236,243,0.12)',
-          boxShadow: n <= current ? '0 0 8px rgba(51,214,230,0.6)' : 'none',
+          boxShadow: n <= current ? '0 0 8px rgba(0,217,255,0.6)' : 'none',
           transition: 'background 0.4s, box-shadow 0.4s',
         }}
       />
@@ -227,7 +232,7 @@ export const ReactionPanel = ({
 }) => {
   const color = tone === 'red' ? 'var(--red)' : tone === 'amber' ? 'var(--amber)' : 'var(--cyan)'
   const borderColor =
-    tone === 'red' ? 'rgba(212,59,54,0.35)' : tone === 'amber' ? 'rgba(211,161,74,0.35)' : 'rgba(51,214,230,0.35)'
+    tone === 'red' ? 'rgba(255,42,42,0.35)' : tone === 'amber' ? 'rgba(255,177,59,0.35)' : 'rgba(0,217,255,0.35)'
   return (
     <motion.div
       initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
@@ -260,11 +265,11 @@ export const OptionChip = ({
     state === 'correct' ? 'var(--cyan)' : state === 'wrong' ? 'var(--red)' : selected ? 'var(--amber)' : 'var(--border)'
   const bg =
     state === 'correct'
-      ? 'rgba(51,214,230,0.1)'
+      ? 'rgba(0,217,255,0.1)'
       : state === 'wrong'
-        ? 'rgba(212,59,54,0.1)'
+        ? 'rgba(255,42,42,0.1)'
         : selected
-          ? 'rgba(211,161,74,0.1)'
+          ? 'rgba(255,177,59,0.1)'
           : 'var(--surface)'
   return (
     <motion.button

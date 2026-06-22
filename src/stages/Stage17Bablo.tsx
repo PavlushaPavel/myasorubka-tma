@@ -39,7 +39,7 @@ export const Stage17Bablo = () => {
       </Reveal>
 
       <Reveal delay={0.1}>
-        <div className="panel" style={{ marginTop: 14, borderColor: 'rgba(211,161,74,0.35)', background: 'rgba(11,16,20,0.6)' }}>
+        <div className="panel" style={{ marginTop: 14, borderColor: 'rgba(255,177,59,0.35)', background: 'rgba(11,16,20,0.6)' }}>
           <SystemLabel tone="faint">YOUR REF LINK</SystemLabel>
           <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, lineHeight: 1.55, color: 'var(--amber)', wordBreak: 'break-all', marginTop: 8 }}>{refLink}</p>
         </div>

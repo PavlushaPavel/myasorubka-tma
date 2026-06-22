@@ -1,66 +1,73 @@
 :root {
-  /* ---- Fonts ---- */
-  --font-display: 'Saira Condensed', system-ui, sans-serif; /* condensed grotesk: ops titles, stamps */
-  --font-body: 'Onest', system-ui, sans-serif;              /* product body */
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;   /* system labels, IDs, prompts */
+  /* ---- Fonts (Digital Noir Forensics) ---- */
+  --font-display: 'Unbounded', 'Inter', system-ui, sans-serif; /* claim titles, stamps */
+  --font-body: 'Inter', system-ui, sans-serif;                  /* product body */
+  --font-mono: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace; /* chat / evidence / system */
 
   /* ---- Surfaces ---- */
-  --void: #0A0D12;
-  --graphite: #121722;
-  --teal: #10272D;
-  --steel: #202B36;
-  --surface: #11151E;       /* default panel */
-  --surface-2: #161C28;     /* raised panel */
+  --void: #06080B;
+  --bg-deep: #030405;
+  --graphite: #0D1117;
+  --teal: #0A2A33;
+  --steel: #1A2430;
+  --surface: rgba(13, 17, 23, 0.86);    /* default forensic card */
+  --surface-2: rgba(18, 24, 32, 0.92);  /* raised card */
 
-  /* ---- Investigation accents (warm) ---- */
-  --red: #D43B36;
-  --red-soft: #E0584F;
-  --amber: #D3A14A;
-  --amber-soft: #E0B568;
+  /* ---- Red: claim / pressure / refund ---- */
+  --red: #FF2A2A;
+  --red-soft: #FF6B6B;
+  --red-dark: #8F1010;
   --paper: #D9D2C3;
 
-  /* ---- AI / digital accents (cool) ---- */
-  --cyan: #33D6E6;
-  --ice: #7DB6FF;
+  /* ---- Amber: evidence / facts ---- */
+  --amber: #FFB13B;
+  --amber-soft: #FFC972;
+
+  /* ---- Cyan: loupe / AI / scan ---- */
+  --cyan: #00D9FF;
+  --ice: #8FD6FF;
+
+  /* ---- Money: growth (final only) ---- */
+  --money: #39FF88;
+  --money-soft: rgba(57, 255, 136, 0.12);
 
   /* ---- Text ---- */
-  --text: #E7ECF3;
-  --text-muted: #AEB9C7;
-  --text-faint: #7C8794;
+  --text: #F2F4F8;
+  --text-muted: #9AA4B2;
+  --text-faint: #5D6673;
 
-  --border: rgba(231, 236, 243, 0.10);
-  --border-strong: rgba(231, 236, 243, 0.2);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.18);
 
   /* ---- Glows ---- */
-  --glow-red: 0 0 28px rgba(212, 59, 54, 0.5);
-  --glow-amber: 0 0 24px rgba(211, 161, 74, 0.45);
-  --glow-cyan: 0 0 26px rgba(51, 214, 230, 0.45);
+  --glow-red: 0 0 32px rgba(255, 42, 42, 0.42);
+  --glow-amber: 0 0 28px rgba(255, 177, 59, 0.4);
+  --glow-cyan: 0 0 32px rgba(0, 217, 255, 0.42);
 
-  /* ---- Shadows (cool-tinted depth) ---- */
-  --shadow-md: 0 2px 8px rgba(0,0,0,0.45), 0 12px 32px rgba(0,0,0,0.5);
-  --shadow-lg: 0 4px 12px rgba(0,0,0,0.5), 0 24px 60px rgba(0,0,0,0.55);
+  /* ---- Shadows ---- */
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.5), 0 14px 36px rgba(0,0,0,0.55);
+  --shadow-lg: 0 4px 14px rgba(0,0,0,0.55), 0 28px 64px rgba(0,0,0,0.6);
 
   /* ---- Spacing (4pt) ---- */
   --space-xs: 4px; --space-sm: 8px; --space-md: 12px;
   --space-lg: 16px; --space-xl: 24px; --space-2xl: 32px; --space-3xl: 48px;
 
-  --radius: 10px;
-  --radius-sm: 6px;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-lg: 24px;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Buttons must not fall back to the UA default black text on our dark surface.
-   Any button without an explicit color inherits the light body text instead. */
 button { color: inherit; font-family: inherit; }
 
 html, body, #root {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background: var(--void);
+  background: var(--bg-deep);
   color: var(--text);
   font-family: var(--font-body);
   -webkit-tap-highlight-color: transparent;
@@ -68,7 +75,15 @@ html, body, #root {
   text-rendering: optimizeLegibility;
 }
 
-/* ---- Forensic operating surface: grid + scanlines + noise + vignette ---- */
+/* ---- Digital Noir room: graphite gradient + corner glows ---- */
+body {
+  background:
+    radial-gradient(70% 50% at 82% 14%, rgba(255, 42, 42, 0.12), transparent 60%),
+    radial-gradient(70% 55% at 16% 86%, rgba(0, 217, 255, 0.10), transparent 60%),
+    linear-gradient(180deg, #080B10 0%, #030405 100%);
+}
+
+/* faint forensic grid */
 body::before {
   content: '';
   position: fixed;
@@ -76,18 +91,19 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(125, 182, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(125, 182, 255, 0.035) 1px, transparent 1px),
-    radial-gradient(120% 80% at 50% -10%, rgba(16, 39, 45, 0.55), transparent 60%);
-  background-size: 44px 44px, 44px 44px, 100% 100%;
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 48px 48px, 48px 48px;
+  opacity: 0.5;
 }
+/* film grain */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 9998;
   pointer-events: none;
-  opacity: 0.045;
+  opacity: 0.05;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -102,26 +118,24 @@ body::after {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  padding: 20px 18px 40px;
+  padding: 22px 18px 40px;
 }
-
-/* In the scrolling flex column, children must keep their natural height —
-   otherwise overflow triggers flex-shrink and crushes buttons/cards. */
+/* In the scrolling flex column, children keep natural height (no flex-shrink crush). */
 .screen > * { flex-shrink: 0; }
 
 h1, h2, h3 {
   font-family: var(--font-display);
   text-transform: uppercase;
-  letter-spacing: 0.01em;
-  line-height: 1.0;
-  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  font-weight: 800;
 }
 
-/* ---- System mono label: CASE #001 / STATUS: OPEN ---- */
+/* ---- System mono label ---- */
 .sys {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-faint);
 }
@@ -133,75 +147,93 @@ h1, h2, h3 {
 .btn {
   position: relative;
   width: 100%;
-  padding: 16px;
+  padding: 16px 20px;
   border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
   cursor: pointer;
   overflow: hidden;
-  transition: transform 0.16s var(--ease-out-expo), box-shadow 0.2s, border-color 0.2s;
+  transition: transform 0.16s var(--ease-out-expo), box-shadow 0.2s, border-color 0.2s, filter 0.2s;
 }
-.btn:active { transform: scale(0.98) translateY(1px); }
+.btn:active { transform: scale(0.985) translateY(1px); }
+.btn:hover { filter: brightness(1.08); }
 
-/* primary = AI cyan action */
+/* primary = cyan (loupe / AI / forward) */
 .btn-primary {
-  background: linear-gradient(180deg, rgba(51,214,230,0.18), rgba(51,214,230,0.06));
-  border-color: rgba(51,214,230,0.55);
-  color: #DFFCFF;
-  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.12);
+  background: linear-gradient(180deg, rgba(0,217,255,0.18), rgba(0,80,100,0.26));
+  border-color: var(--cyan);
+  color: #E6FCFF;
+  box-shadow: var(--glow-cyan), inset 0 1px 0 rgba(255,255,255,0.12);
 }
 .btn-primary::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(120deg, transparent 35%, rgba(51,214,230,0.18) 50%, transparent 65%);
+  background: linear-gradient(120deg, transparent 35%, rgba(0,217,255,0.22) 50%, transparent 65%);
   transform: translateX(-120%);
   transition: transform 0.7s var(--ease-out-expo);
 }
 .btn-primary:hover::after { transform: translateX(120%); }
 
-/* danger = investigation red */
+/* danger = claim / pressure */
 .btn-danger {
-  background: linear-gradient(180deg, rgba(212,59,54,0.2), rgba(212,59,54,0.07));
-  border-color: rgba(212,59,54,0.55);
+  background: linear-gradient(180deg, rgba(255,42,42,0.2), rgba(143,16,16,0.32));
+  border-color: var(--red);
   color: #FFE5E3;
-  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.1);
+  box-shadow: var(--glow-red), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* amber = artifact / evidence action */
+.btn-amber {
+  background: linear-gradient(180deg, rgba(255,177,59,0.18), rgba(120,72,12,0.26));
+  border-color: var(--amber);
+  color: #FFF1DB;
+  box-shadow: var(--glow-amber), inset 0 1px 0 rgba(255,255,255,0.1);
 }
 
 .btn-ghost {
   width: 100%;
-  background: transparent;
+  background: rgba(255,255,255,0.02);
   border: 1px solid var(--border);
   color: var(--text-muted);
   padding: 13px 16px;
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   font-family: var(--font-mono);
   font-size: 13px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
 .btn-ghost:active { color: var(--text); border-color: var(--border-strong); }
 
-/* ---- Panels / cards ---- */
+/* ---- Forensic cards ---- */
 .panel {
   position: relative;
-  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)),
+    var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: var(--space-lg);
   box-shadow: var(--shadow-md);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
-/* evidence card — warm paper feel inside the dark ops surface */
+/* evidence card — amber facts */
 .evidence {
-  background: linear-gradient(180deg, rgba(211,161,74,0.08), rgba(17,21,30,0.9));
-  border: 1px solid rgba(211,161,74,0.28);
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(255,177,59,0.13), transparent 42%),
+    var(--surface);
+  border: 1px solid var(--amber-border, rgba(255,177,59,0.4));
   border-radius: var(--radius);
   padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 /* ---- Tags ---- */
@@ -214,18 +246,52 @@ h1, h2, h3 {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.tag-red { background: rgba(212,59,54,0.14); color: var(--red-soft); box-shadow: inset 0 0 0 1px rgba(212,59,54,0.3); }
-.tag-amber { background: rgba(211,161,74,0.14); color: var(--amber); box-shadow: inset 0 0 0 1px rgba(211,161,74,0.3); }
-.tag-cyan { background: rgba(51,214,230,0.14); color: var(--cyan); box-shadow: inset 0 0 0 1px rgba(51,214,230,0.3); }
+.tag-red { background: rgba(255,42,42,0.14); color: var(--red-soft); box-shadow: inset 0 0 0 1px rgba(255,42,42,0.4); }
+.tag-amber { background: rgba(255,177,59,0.13); color: var(--amber); box-shadow: inset 0 0 0 1px rgba(255,177,59,0.4); }
+.tag-cyan { background: rgba(0,217,255,0.13); color: var(--cyan); box-shadow: inset 0 0 0 1px rgba(0,217,255,0.4); }
+
+/* ---- Claim stamp ---- */
+.case-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border: 1px solid var(--red);
+  border-radius: var(--radius-sm);
+  color: var(--red-soft);
+  background: rgba(255,42,42,0.1);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+  box-shadow: 0 0 24px rgba(255,42,42,0.2);
+}
+
+/* ---- Pressure meter ---- */
+.pressure-bar {
+  height: 9px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.pressure-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7A0C0C, #FF2A2A);
+  box-shadow: 0 0 18px rgba(255,42,42,0.6);
+}
 
 /* ---- Stamp glow pulse ---- */
 .stamp-fx { animation: stampGlow 2.6s 0.5s ease-in-out infinite; }
 @keyframes stampGlow {
-  0%, 100% { filter: drop-shadow(0 0 4px rgba(212,59,54,0.5)); }
-  50% { filter: drop-shadow(0 0 16px rgba(212,59,54,0.8)); }
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(255,42,42,0.5)); }
+  50% { filter: drop-shadow(0 0 18px rgba(255,42,42,0.85)); }
 }
 
 /* ---- Forensic scanner sweep line ---- */

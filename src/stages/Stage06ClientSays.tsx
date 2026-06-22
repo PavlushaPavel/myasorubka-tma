@@ -17,7 +17,7 @@ export const Stage06ClientSays = () => {
       </Reveal>
 
       <Reveal delay={0.12}>
-        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(212,59,54,0.4)', background: 'rgba(212,59,54,0.05)', textAlign: 'center' }}>
+        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(255,42,42,0.4)', background: 'rgba(255,42,42,0.05)', textAlign: 'center' }}>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, textTransform: 'uppercase', color: 'var(--red-soft)' }}>{CLIENT_SAYS.opener}</p>
         </div>
       </Reveal>

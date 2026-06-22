@@ -12,7 +12,17 @@ export const Stage01Chat2 = () => {
       <CaseBar id="CASE #001" status="INCOMING" tone="red" />
 
       <Reveal delay={0.05}>
-        <h1 style={{ fontSize: 'clamp(22px, 6.4vw, 29px)', marginBottom: 16 }}>{CHAT2.title}</h1>
+        <h1 style={{ fontSize: 'clamp(22px, 6.4vw, 29px)', marginBottom: 14 }}>{CHAT2.title}</h1>
+      </Reveal>
+
+      <Reveal delay={0.1}>
+        <div className="panel" style={{ marginBottom: 16, padding: '12px 14px', borderColor: 'rgba(255,42,42,0.3)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
+            <span className="sys sys-red">ДАВЛЕНИЕ КЛИЕНТА</span>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 18, color: 'var(--red-soft)' }}>92%</span>
+          </div>
+          <div className="pressure-bar"><span style={{ width: '92%' }} /></div>
+        </div>
       </Reveal>
 
       <div className="panel" style={{ padding: '14px 14px 16px', marginBottom: 18 }}>

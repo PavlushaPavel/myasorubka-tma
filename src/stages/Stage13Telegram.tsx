@@ -25,7 +25,7 @@ export const Stage13Telegram = () => {
 
         <h1 style={{ fontSize: 'clamp(24px, 7vw, 34px)', marginBottom: 14 }}>{TELEGRAM.title}</h1>
 
-        <div className="panel" style={{ borderColor: 'rgba(51,214,230,0.28)' }}>
+        <div className="panel" style={{ borderColor: 'rgba(0,217,255,0.28)' }}>
           <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.6 }}>{TELEGRAM.body}</p>
         </div>
 

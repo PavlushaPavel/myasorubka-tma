@@ -25,16 +25,16 @@ export const Stage10Bridge = () => {
 
       <Reveal delay={0.2}>
         <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, textTransform: 'uppercase', color: 'var(--red-soft)', marginBottom: 12 }}>{BRIDGE.butHead}</p>
-        <div className="panel" style={{ marginBottom: 16, borderColor: 'rgba(212,59,54,0.25)' }}>
+        <div className="panel" style={{ marginBottom: 16, borderColor: 'rgba(255,42,42,0.25)' }}>
           {BRIDGE.reality.map((r, i) => (
-            <p key={i} style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.5, marginTop: i ? 9 : 0, paddingLeft: 12, borderLeft: '2px solid rgba(212,59,54,0.4)' }}>{r}</p>
+            <p key={i} style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.5, marginTop: i ? 9 : 0, paddingLeft: 12, borderLeft: '2px solid rgba(255,42,42,0.4)' }}>{r}</p>
           ))}
         </div>
       </Reveal>
 
       <Reveal delay={0.28}>
         <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, textTransform: 'uppercase', color: 'var(--text)', marginBottom: 16 }}>{BRIDGE.thenLine}</p>
-        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(51,214,230,0.45)', background: 'rgba(51,214,230,0.05)', boxShadow: 'var(--glow-cyan)' }}>
+        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(0,217,255,0.45)', background: 'rgba(0,217,255,0.05)', boxShadow: 'var(--glow-cyan)' }}>
           <p style={{ color: 'var(--text)', fontSize: 14.5, lineHeight: 1.55 }}>{BRIDGE.turn}</p>
         </div>
       </Reveal>

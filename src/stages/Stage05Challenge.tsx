@@ -33,7 +33,7 @@ export const Stage05Challenge = () => {
       </Reveal>
 
       <Reveal delay={0.18}>
-        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(212,59,54,0.3)' }}>
+        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(255,42,42,0.3)' }}>
           <SystemLabel tone="red">{CHALLENGE.recapLabel}</SystemLabel>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 10 }}>
             {CHALLENGE.recap.map((r) => (

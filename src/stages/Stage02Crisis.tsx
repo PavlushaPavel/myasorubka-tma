@@ -38,7 +38,7 @@ export const Stage02Crisis = () => {
 
       <Reveal delay={0.28}>
         <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.55, marginBottom: 12 }}>{CRISIS.butLine}</p>
-        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(212,59,54,0.4)', background: 'rgba(212,59,54,0.05)', textAlign: 'center' }}>
+        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(255,42,42,0.4)', background: 'rgba(255,42,42,0.05)', textAlign: 'center' }}>
           <p style={{ fontFamily: 'var(--font-mono)', fontSize: 13.5, lineHeight: 1.6, color: 'var(--red-soft)', letterSpacing: '0.02em' }}>{CRISIS.math}</p>
         </div>
       </Reveal>
@@ -53,7 +53,7 @@ export const Stage02Crisis = () => {
       </Reveal>
 
       <Reveal delay={0.44}>
-        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(211,161,74,0.45)', background: 'rgba(211,161,74,0.05)' }}>
+        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(255,177,59,0.45)', background: 'rgba(255,177,59,0.05)' }}>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 17, lineHeight: 1.35, color: 'var(--amber-soft)' }}>{CRISIS.punch}</p>
         </div>
       </Reveal>

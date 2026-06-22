@@ -16,7 +16,7 @@ export const Stage09Artifact2 = () => {
 
       <div style={{ marginBottom: 16 }}>
         <UnlockFrame accent="cyan">
-          <div className="panel" style={{ borderColor: 'rgba(51,214,230,0.4)', background: 'linear-gradient(160deg, rgba(51,214,230,0.08), rgba(17,21,30,0.9))', boxShadow: 'var(--glow-cyan)' }}>
+          <div className="panel" style={{ borderColor: 'rgba(0,217,255,0.4)', background: 'linear-gradient(160deg, rgba(0,217,255,0.08), rgba(17,21,30,0.9))', boxShadow: 'var(--glow-cyan)' }}>
             <SystemLabel tone="cyan">{ARTIFACT2.unlockLabel}</SystemLabel>
             <h1 style={{ fontSize: 'clamp(26px, 8vw, 36px)', margin: '12px 0 10px' }}>{ARTIFACT2.title}</h1>
             <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.6 }}>{ARTIFACT2.body}</p>
@@ -26,9 +26,9 @@ export const Stage09Artifact2 = () => {
 
       {/* weak offer being replaced */}
       <Reveal delay={0.12}>
-        <div className="panel" style={{ marginBottom: 14, borderColor: 'rgba(212,59,54,0.35)', background: 'rgba(212,59,54,0.05)' }}>
+        <div className="panel" style={{ marginBottom: 14, borderColor: 'rgba(255,42,42,0.35)', background: 'rgba(255,42,42,0.05)' }}>
           <SystemLabel tone="red">БЫЛО</SystemLabel>
-          <p style={{ color: 'var(--text-muted)', fontSize: 15, lineHeight: 1.4, marginTop: 8, textDecoration: 'line-through', textDecorationColor: 'rgba(212,59,54,0.6)' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: 15, lineHeight: 1.4, marginTop: 8, textDecoration: 'line-through', textDecorationColor: 'rgba(255,42,42,0.6)' }}>
             {ARTIFACT2.weak}
           </p>
         </div>

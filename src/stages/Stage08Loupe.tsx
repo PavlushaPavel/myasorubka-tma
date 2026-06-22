@@ -124,7 +124,7 @@ export const Stage08Loupe = () => {
           flexShrink: 0,
           borderRadius: 'var(--radius)',
           overflow: 'hidden',
-          border: '1px solid rgba(51,214,230,0.25)',
+          border: '1px solid rgba(0,217,255,0.25)',
           background:
             'linear-gradient(rgba(125,182,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(125,182,255,0.05) 1px, transparent 1px), radial-gradient(120% 90% at 50% 0%, rgba(16,39,45,0.5), rgba(10,13,18,0.95))',
           backgroundSize: '28px 28px, 28px 28px, 100% 100%',
@@ -156,8 +156,8 @@ export const Stage08Loupe = () => {
                 textTransform: 'uppercase',
                 letterSpacing: '0.01em',
                 color: scanned.includes(p.id) ? 'var(--text-faint)' : 'var(--amber)',
-                background: 'rgba(211,161,74,0.07)',
-                border: '1px solid rgba(211,161,74,0.22)',
+                background: 'rgba(255,177,59,0.07)',
+                border: '1px solid rgba(255,177,59,0.22)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '8px 10px',
                 lineHeight: 1.2,
@@ -235,7 +235,7 @@ export const Stage08Loupe = () => {
               left: 0,
               right: 0,
               height: 50,
-              background: 'linear-gradient(180deg, transparent, rgba(212,59,54,0.22) 80%, rgba(212,59,54,0.8))',
+              background: 'linear-gradient(180deg, transparent, rgba(255,42,42,0.22) 80%, rgba(255,42,42,0.8))',
               animation: 'scanSweep 1.8s linear infinite',
               mixBlendMode: 'screen',
             }}
@@ -299,7 +299,7 @@ export const Stage08Loupe = () => {
             transform: 'translate(-50%, -50%)',
             borderRadius: '50%',
             border: '2px solid var(--cyan)',
-            boxShadow: '0 0 30px rgba(51,214,230,0.55), inset 0 0 34px rgba(51,214,230,0.18)',
+            boxShadow: '0 0 30px rgba(0,217,255,0.55), inset 0 0 34px rgba(0,217,255,0.18)',
             pointerEvents: 'none',
             opacity: 0,
             transition: 'opacity 0.18s',
@@ -307,11 +307,11 @@ export const Stage08Loupe = () => {
         >
           <span style={{ position: 'absolute', inset: -1, borderRadius: '50%', border: '2px solid rgba(255,60,60,0.5)', transform: 'translate(-1.6px, -1px)', mixBlendMode: 'screen', pointerEvents: 'none' }} />
           <span style={{ position: 'absolute', inset: -1, borderRadius: '50%', border: '2px solid rgba(70,150,255,0.5)', transform: 'translate(1.6px, 1px)', mixBlendMode: 'screen', pointerEvents: 'none' }} />
-          <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'radial-gradient(circle at center, transparent 66%, rgba(0,0,0,0.38) 83%, rgba(51,214,230,0.12) 95%, transparent 100%)', pointerEvents: 'none' }} />
+          <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'radial-gradient(circle at center, transparent 66%, rgba(0,0,0,0.38) 83%, rgba(0,217,255,0.12) 95%, transparent 100%)', pointerEvents: 'none' }} />
           <span style={{ position: 'absolute', inset: 3, borderRadius: '50%', background: 'radial-gradient(120% 90% at 30% 18%, rgba(255,255,255,0.2), transparent 45%)', pointerEvents: 'none' }} />
           <span style={{ position: 'absolute', left: '50%', top: 9, transform: 'translateX(-50%)', fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.14em', color: 'var(--cyan)' }}>X-RAY</span>
-          <span style={{ position: 'absolute', left: '50%', top: '50%', width: 13, height: 1, background: 'rgba(51,214,230,0.55)', transform: 'translate(-50%,-50%)' }} />
-          <span style={{ position: 'absolute', left: '50%', top: '50%', width: 1, height: 13, background: 'rgba(51,214,230,0.55)', transform: 'translate(-50%,-50%)' }} />
+          <span style={{ position: 'absolute', left: '50%', top: '50%', width: 13, height: 1, background: 'rgba(0,217,255,0.55)', transform: 'translate(-50%,-50%)' }} />
+          <span style={{ position: 'absolute', left: '50%', top: '50%', width: 1, height: 13, background: 'rgba(0,217,255,0.55)', transform: 'translate(-50%,-50%)' }} />
           <span style={{ position: 'absolute', right: -16, bottom: -16, width: 26, height: 5, borderRadius: 3, background: 'var(--cyan)', transform: 'rotate(45deg)', boxShadow: '0 0 10px var(--cyan)' }} />
         </div>
 
@@ -321,7 +321,7 @@ export const Stage08Loupe = () => {
             <motion.div
               animate={{ scale: [1, 1.12, 1], opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              style={{ width: 72, height: 72, borderRadius: '50%', border: '2px solid var(--cyan)', boxShadow: '0 0 22px rgba(51,214,230,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26 }}
+              style={{ width: 72, height: 72, borderRadius: '50%', border: '2px solid var(--cyan)', boxShadow: '0 0 22px rgba(0,217,255,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26 }}
             >
               🔍
             </motion.div>
@@ -344,7 +344,7 @@ export const Stage08Loupe = () => {
                 animate={{ opacity: 1, y: 0, filter: 'blur(0)' }}
                 transition={{ duration: 0.4 }}
                 className="panel"
-                style={{ padding: '11px 13px', borderColor: 'rgba(51,214,230,0.25)' }}
+                style={{ padding: '11px 13px', borderColor: 'rgba(0,217,255,0.25)' }}
               >
                 <span className="sys sys-red" style={{ fontSize: 10.5 }}>⚑ «{p.phrase}»</span>
                 <p style={{ color: 'var(--ice)', fontSize: 12.5, lineHeight: 1.45, marginTop: 6 }}>{p.verdict}</p>

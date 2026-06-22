@@ -56,7 +56,7 @@ export const Stage04Role = () => {
                   padding: '14px 16px',
                   opacity: dimmed ? 0.5 : 1,
                   borderColor: isSelected ? 'var(--amber)' : 'var(--border)',
-                  background: isSelected ? 'rgba(211,161,74,0.1)' : undefined,
+                  background: isSelected ? 'rgba(255,177,59,0.1)' : undefined,
                   boxShadow: isSelected ? 'var(--glow-amber)' : undefined,
                   transition: 'opacity 0.25s, border-color 0.25s, background 0.25s, box-shadow 0.25s',
                 }}
@@ -75,6 +75,9 @@ export const Stage04Role = () => {
                     {r.stampWord}
                   </div>
                   <div style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.45, marginTop: 5 }}>{r.hire}</div>
+                  <div className="sys" style={{ fontSize: 10, marginTop: 9, color: isSelected ? 'var(--red-soft)' : 'var(--text-faint)' }}>
+                    КРАЙНИЙ: {isSelected ? 'ВЫ' : 'НЕ НАЗНАЧЕН'}
+                  </div>
                 </div>
                 <span
                   style={{

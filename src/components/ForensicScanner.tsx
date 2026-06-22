@@ -13,7 +13,7 @@ export const ForensicScanner = ({ scanning, label = 'SCANNING…', children }: P
     style={{
       position: 'relative',
       borderRadius: 'var(--radius)',
-      border: '1px solid rgba(51,214,230,0.25)',
+      border: '1px solid rgba(0,217,255,0.25)',
       background: 'rgba(16,39,45,0.25)',
       padding: 16,
       overflow: 'hidden',
@@ -57,7 +57,7 @@ export const ForensicScanner = ({ scanning, label = 'SCANNING…', children }: P
               left: 0,
               right: 0,
               height: 64,
-              background: 'linear-gradient(180deg, transparent, rgba(51,214,230,0.18) 80%, rgba(51,214,230,0.9))',
+              background: 'linear-gradient(180deg, transparent, rgba(0,217,255,0.18) 80%, rgba(0,217,255,0.9))',
               animation: 'scanSweep 1.6s linear infinite',
             }}
           />

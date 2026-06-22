@@ -11,6 +11,13 @@ export const Stage00Chat1 = () => {
     <div className="screen">
       <CaseBar id="CASE #001" status="INCOMING" tone="red" />
 
+      <Reveal delay={0.04}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 14 }}>
+          <span className="case-stamp stamp-fx">● ПРЕТЕНЗИЯ ОТКРЫТА</span>
+          <span className="tag tag-red">RISK: ВОЗВРАТ</span>
+        </div>
+      </Reveal>
+
       <Reveal delay={0.05}>
         <h1 style={{ fontSize: 'clamp(23px, 6.8vw, 31px)', marginBottom: 12 }}>{CHAT1.title}</h1>
         <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.55, marginBottom: 16 }}>{CHAT1.lead}</p>

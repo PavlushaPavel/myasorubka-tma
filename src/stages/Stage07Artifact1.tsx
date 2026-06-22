@@ -17,7 +17,7 @@ export const Stage07Artifact1 = () => {
       {/* sealed evidence container unlocking */}
       <div style={{ marginBottom: 16 }}>
         <UnlockFrame accent="cyan">
-          <div className="panel" style={{ borderColor: 'rgba(51,214,230,0.4)', background: 'linear-gradient(160deg, rgba(51,214,230,0.08), rgba(17,21,30,0.9))', boxShadow: 'var(--glow-cyan)' }}>
+          <div className="panel" style={{ borderColor: 'rgba(0,217,255,0.4)', background: 'linear-gradient(160deg, rgba(0,217,255,0.08), rgba(17,21,30,0.9))', boxShadow: 'var(--glow-cyan)' }}>
             <SystemLabel tone="cyan">{ARTIFACT1.unlockLabel}</SystemLabel>
             <h1 style={{ fontSize: 'clamp(26px, 8vw, 36px)', margin: '12px 0 10px' }}>{ARTIFACT1.title}</h1>
             <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.6 }}>{ARTIFACT1.body}</p>
@@ -43,7 +43,7 @@ export const Stage07Artifact1 = () => {
       </Reveal>
 
       <Reveal delay={0.28}>
-        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(211,161,74,0.45)', background: 'rgba(211,161,74,0.05)' }}>
+        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(255,177,59,0.45)', background: 'rgba(255,177,59,0.05)' }}>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, lineHeight: 1.3, color: 'var(--amber-soft)' }}>
             {ARTIFACT1.punch}
           </p>

@@ -24,8 +24,8 @@ export const Stage03Escalation = () => {
               <div
                 className="panel"
                 style={{
-                  borderColor: red ? 'rgba(212,59,54,0.4)' : 'rgba(211,161,74,0.3)',
-                  background: red ? 'rgba(212,59,54,0.06)' : 'rgba(211,161,74,0.04)',
+                  borderColor: red ? 'rgba(255,42,42,0.4)' : 'rgba(255,177,59,0.3)',
+                  background: red ? 'rgba(255,42,42,0.06)' : 'rgba(255,177,59,0.04)',
                   marginLeft: i * 10,
                 }}
               >

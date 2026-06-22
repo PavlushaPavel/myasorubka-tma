@@ -33,7 +33,7 @@ export const Stage09AfterLoupe = () => {
 
       <Reveal delay={0.3}>
         <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.55, marginBottom: 12 }}>{AFTER_LOUPE.foldHead}</p>
-        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(212,59,54,0.45)', background: 'rgba(212,59,54,0.06)', textAlign: 'center' }}>
+        <div className="panel" style={{ marginBottom: 18, borderColor: 'rgba(255,42,42,0.45)', background: 'rgba(255,42,42,0.06)', textAlign: 'center' }}>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(20px, 5.6vw, 26px)', textTransform: 'uppercase', color: 'var(--red-soft)', lineHeight: 1.1 }}>{AFTER_LOUPE.fold}</p>
         </div>
       </Reveal>
