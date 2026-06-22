@@ -3,13 +3,13 @@ import { motion } from 'framer-motion'
 import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 import { Reveal } from '../components/Reveal'
-import { CaseBar, SystemLabel, ProgressLevels } from '../components/ui'
+import { CaseBar, ProgressLevels } from '../components/ui'
 import { ROLE_SELECT } from '../data/content'
 import { ROLES } from '../data/roles'
 import type { RoleId } from '../types'
 import { useAppStore } from '../store/useAppStore'
 
-export const Stage02Role = () => {
+export const Stage04Role = () => {
   const { impact, select } = useTelegramHaptics()
   const setRole = useAppStore((s) => s.setRole)
   const [selected, setSelected] = useState<RoleId | null>(null)
@@ -29,7 +29,7 @@ export const Stage02Role = () => {
       </Reveal>
 
       <Reveal delay={0.12}>
-        <h1 style={{ fontSize: 'clamp(24px, 7vw, 32px)', marginTop: 16, marginBottom: 8 }}>{ROLE_SELECT.title}</h1>
+        <h1 style={{ fontSize: 'clamp(23px, 6.6vw, 30px)', marginTop: 16, marginBottom: 8 }}>{ROLE_SELECT.title}</h1>
       </Reveal>
 
       <Reveal delay={0.2}>
@@ -40,7 +40,6 @@ export const Stage02Role = () => {
         {ROLES.map((r, i) => {
           const isSelected = selected === r.id
           const dimmed = selected !== null && !isSelected
-          const code = `OP-0${i + 1}`
           return (
             <Reveal key={r.id} delay={0.26 + i * 0.07}>
               <motion.button
@@ -63,21 +62,19 @@ export const Stage02Role = () => {
                 }}
               >
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <SystemLabel tone="amber">{code}</SystemLabel>
                   <div
                     style={{
                       color: 'var(--text)',
                       fontFamily: 'var(--font-display)',
                       fontWeight: 700,
-                      fontSize: 18,
+                      fontSize: 19,
                       textTransform: 'uppercase',
                       letterSpacing: '0.02em',
-                      marginTop: 4,
                     }}
                   >
-                    {r.label}
+                    {r.stampWord}
                   </div>
-                  <div style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.45, marginTop: 4 }}>{r.hire}</div>
+                  <div style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.45, marginTop: 5 }}>{r.hire}</div>
                 </div>
                 <span
                   style={{
@@ -104,7 +101,7 @@ export const Stage02Role = () => {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           style={{ marginTop: 'auto', paddingTop: 18 }}
         >
-          <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(3, 'scan') }}>
+          <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(5, 'scan') }}>
             {ROLE_SELECT.cta}
           </button>
         </motion.div>

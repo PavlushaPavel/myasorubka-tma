@@ -71,7 +71,7 @@ export const Stage08MiniChallenge = () => {
           <ReactionPanel label={hasTrap ? M.trapLabel : M.goodLabel} tone={hasTrap ? 'red' : 'cyan'}>
             {hasTrap ? M.trapReaction : M.goodReaction}
           </ReactionPanel>
-          <button className="btn btn-primary" onClick={() => { select(); navigateScreen(9, 'scan') }}>{M.cta}</button>
+          <button className="btn btn-primary" onClick={() => { select(); navigateScreen(13, 'scan') }}>{M.cta}</button>
         </motion.div>
       )}
     </div>

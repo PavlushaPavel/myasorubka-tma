@@ -1,6 +1,58 @@
 import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
+/* Chat bubble — client (incoming, left) or you (outgoing, right). */
+export const ChatBubble = ({
+  children,
+  side = 'client',
+  harsh = false,
+  delay = 0,
+}: {
+  children: ReactNode
+  side?: 'client' | 'you'
+  harsh?: boolean
+  delay?: number
+}) => {
+  const isClient = side === 'client'
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        alignSelf: isClient ? 'flex-start' : 'flex-end',
+        maxWidth: '86%',
+        background: isClient ? (harsh ? 'rgba(212,59,54,0.12)' : 'var(--surface-2)') : 'rgba(51,214,230,0.12)',
+        border: `1px solid ${isClient ? (harsh ? 'rgba(212,59,54,0.4)' : 'var(--border)') : 'rgba(51,214,230,0.35)'}`,
+        borderRadius: isClient ? '4px 14px 14px 14px' : '14px 4px 14px 14px',
+        padding: '10px 13px',
+        color: 'var(--text)',
+        fontSize: 14,
+        lineHeight: 1.45,
+        boxShadow: 'var(--shadow-md)',
+      }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+/* Chat header: avatar dot + name + online status. */
+export const ChatHeader = ({ name }: { name: string }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, paddingBottom: 12, borderBottom: '1px solid var(--border)' }}>
+    <span style={{ width: 34, height: 34, borderRadius: '50%', background: 'linear-gradient(150deg, var(--steel), var(--graphite))', border: '1px solid var(--border-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15, color: 'var(--text-muted)' }}>
+      {name.charAt(0)}
+    </span>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.02em', color: 'var(--text)' }}>{name}</span>
+      <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#27c93f', boxShadow: '0 0 6px #27c93f' }} />
+        <span className="sys" style={{ fontSize: 10 }}>в сети</span>
+      </span>
+    </div>
+  </div>
+)
+
 /* Forensic manifest: tidy 2-column itemised list — replaces dense chip walls
    for long enumerations (что получаешь / должны были дать / AI может). */
 export const ManifestList = ({

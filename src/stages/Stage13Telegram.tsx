@@ -32,7 +32,7 @@ export const Stage13Telegram = () => {
         <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => { impact('medium'); window.open(TELEGRAM.link, '_blank') }}>
           {TELEGRAM.cta}
         </button>
-        <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(14, 'scan') }}>
+        <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(18, 'scan') }}>
           {TELEGRAM.nextCta}
         </button>
       </Reveal>

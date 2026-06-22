@@ -18,14 +18,14 @@ const POS = [
 const R = 88 // lens radius (px)
 const MAG = 1.32 // magnification factor under the glass
 
-export const Stage05Loupe = () => {
+export const Stage08Loupe = () => {
   const { impact, select } = useTelegramHaptics()
   const boardRef = useRef<HTMLDivElement>(null)
-  const clipRef = useRef<HTMLDivElement>(null) // clipped x-ray wrapper (defines visible circle)
-  const magRef = useRef<HTMLDivElement>(null) // magnified inner content
-  const refractRef = useRef<HTMLDivElement>(null) // rim refraction band (edge bending)
-  const mag2Ref = useRef<HTMLDivElement>(null) // stronger-magnified content for the rim
-  const lensRef = useRef<HTMLDivElement>(null) // glass ring
+  const clipRef = useRef<HTMLDivElement>(null)
+  const magRef = useRef<HTMLDivElement>(null)
+  const refractRef = useRef<HTMLDivElement>(null)
+  const mag2Ref = useRef<HTMLDivElement>(null)
+  const lensRef = useRef<HTMLDivElement>(null)
   const pos = useRef({ x: 0, y: 0 })
   const raf = useRef<number | null>(null)
   const startedRef = useRef(false)
@@ -36,7 +36,6 @@ export const Stage05Loupe = () => {
 
   useEffect(() => () => { if (raf.current) cancelAnimationFrame(raf.current) }, [])
 
-  // imperative tracking — no React re-render per pointer move
   const apply = () => {
     raf.current = null
     const { x, y } = pos.current
@@ -47,7 +46,6 @@ export const Stage05Loupe = () => {
       clipRef.current.style.opacity = '1'
     }
     if (magRef.current) magRef.current.style.transformOrigin = `${x}px ${y}px`
-    // rim refraction: keep only the outer band of a stronger-magnified copy
     if (refractRef.current) {
       const rim = `radial-gradient(circle ${R}px at ${x}px ${y}px, rgba(0,0,0,0) 64%, #000 82%, #000 100%)`
       refractRef.current.style.clipPath = clip
@@ -74,7 +72,6 @@ export const Stage05Loupe = () => {
     if (!startedRef.current) { startedRef.current = true; setActive(true) }
     if (raf.current == null) raf.current = requestAnimationFrame(apply)
 
-    // scan detection — fire only when a NEW phrase enters the glass
     for (let i = 0; i < LOUPE_PHRASES.length; i++) {
       const p = LOUPE_PHRASES[i]
       if (scannedRef.current.includes(p.id)) continue
@@ -117,7 +114,6 @@ export const Stage05Loupe = () => {
         </div>
       </Reveal>
 
-      {/* ── interactive forensic board ── */}
       <div
         ref={boardRef}
         onPointerMove={onPointerMove}
@@ -186,7 +182,7 @@ export const Stage05Loupe = () => {
           </div>
         ))}
 
-        {/* REALITY X-RAY — clipped to the glass circle, content magnified around lens centre */}
+        {/* REALITY X-RAY — clipped to glass circle, magnified around lens centre */}
         <div
           ref={clipRef}
           style={{
@@ -233,7 +229,6 @@ export const Stage05Loupe = () => {
               </div>
             ))}
           </div>
-          {/* scan line inside the glass */}
           <div
             style={{
               position: 'absolute',
@@ -247,7 +242,7 @@ export const Stage05Loupe = () => {
           />
         </div>
 
-        {/* RIM REFRACTION — outer band of a stronger-magnified copy, masked to the edge */}
+        {/* RIM REFRACTION */}
         <div
           ref={refractRef}
           style={{
@@ -292,7 +287,7 @@ export const Stage05Loupe = () => {
           </div>
         </div>
 
-        {/* GLASS ring + crosshair + specular highlight */}
+        {/* GLASS ring */}
         <div
           ref={lensRef}
           style={{
@@ -310,17 +305,13 @@ export const Stage05Loupe = () => {
             transition: 'opacity 0.18s',
           }}
         >
-          {/* chromatic aberration — red + blue rims offset in opposite directions */}
           <span style={{ position: 'absolute', inset: -1, borderRadius: '50%', border: '2px solid rgba(255,60,60,0.5)', transform: 'translate(-1.6px, -1px)', mixBlendMode: 'screen', pointerEvents: 'none' }} />
           <span style={{ position: 'absolute', inset: -1, borderRadius: '50%', border: '2px solid rgba(70,150,255,0.5)', transform: 'translate(1.6px, 1px)', mixBlendMode: 'screen', pointerEvents: 'none' }} />
-          {/* refraction bevel — glass thickness bends light at the edge */}
           <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'radial-gradient(circle at center, transparent 66%, rgba(0,0,0,0.38) 83%, rgba(51,214,230,0.12) 95%, transparent 100%)', pointerEvents: 'none' }} />
-          {/* glass specular */}
           <span style={{ position: 'absolute', inset: 3, borderRadius: '50%', background: 'radial-gradient(120% 90% at 30% 18%, rgba(255,255,255,0.2), transparent 45%)', pointerEvents: 'none' }} />
           <span style={{ position: 'absolute', left: '50%', top: 9, transform: 'translateX(-50%)', fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.14em', color: 'var(--cyan)' }}>X-RAY</span>
           <span style={{ position: 'absolute', left: '50%', top: '50%', width: 13, height: 1, background: 'rgba(51,214,230,0.55)', transform: 'translate(-50%,-50%)' }} />
           <span style={{ position: 'absolute', left: '50%', top: '50%', width: 1, height: 13, background: 'rgba(51,214,230,0.55)', transform: 'translate(-50%,-50%)' }} />
-          {/* grip handle */}
           <span style={{ position: 'absolute', right: -16, bottom: -16, width: 26, height: 5, borderRadius: 3, background: 'var(--cyan)', transform: 'rotate(45deg)', boxShadow: '0 0 10px var(--cyan)' }} />
         </div>
 
@@ -343,7 +334,6 @@ export const Stage05Loupe = () => {
         Сверху — слова клиента. Под лупой — что на самом деле.
       </p>
 
-      {/* readable record of what was uncovered */}
       <AnimatePresence>
         {count > 0 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 14 }}>
@@ -370,7 +360,7 @@ export const Stage05Loupe = () => {
             <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.55, marginBottom: 14, paddingLeft: 11, borderLeft: '2px solid var(--cyan)' }}>
               {LOUPE.doneNote}
             </p>
-            <button className="btn btn-primary" onClick={() => { select(); navigateScreen(6, 'scan') }}>
+            <button className="btn btn-primary" onClick={() => { select(); navigateScreen(9, 'scan') }}>
               {LOUPE.cta}
             </button>
           </motion.div>

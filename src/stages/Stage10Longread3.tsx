@@ -61,7 +61,7 @@ export const Stage10Longread3 = () => {
       </Reveal>
 
       <Reveal delay={0.44} style={{ marginTop: 'auto', paddingTop: 6 }}>
-        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(11, 'scan') }}>
+        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(15, 'scan') }}>
           {LONGREAD3.cta}
         </button>
       </Reveal>

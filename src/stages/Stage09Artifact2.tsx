@@ -56,7 +56,7 @@ export const Stage09Artifact2 = () => {
       <button className="btn btn-primary" onClick={() => { impact('light'); window.open(ARTIFACT2.link, '_blank') }}>
         {ARTIFACT2.cta}
       </button>
-      <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(10, 'scan') }}>
+      <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(14, 'scan') }}>
         {ARTIFACT2.nextCta}
       </button>
     </div>
