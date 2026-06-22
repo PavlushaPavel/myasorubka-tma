@@ -23,6 +23,8 @@ export const Stage05Loupe = () => {
   const boardRef = useRef<HTMLDivElement>(null)
   const clipRef = useRef<HTMLDivElement>(null) // clipped x-ray wrapper (defines visible circle)
   const magRef = useRef<HTMLDivElement>(null) // magnified inner content
+  const refractRef = useRef<HTMLDivElement>(null) // rim refraction band (edge bending)
+  const mag2Ref = useRef<HTMLDivElement>(null) // stronger-magnified content for the rim
   const lensRef = useRef<HTMLDivElement>(null) // glass ring
   const pos = useRef({ x: 0, y: 0 })
   const raf = useRef<number | null>(null)
@@ -45,6 +47,16 @@ export const Stage05Loupe = () => {
       clipRef.current.style.opacity = '1'
     }
     if (magRef.current) magRef.current.style.transformOrigin = `${x}px ${y}px`
+    // rim refraction: keep only the outer band of a stronger-magnified copy
+    if (refractRef.current) {
+      const rim = `radial-gradient(circle ${R}px at ${x}px ${y}px, rgba(0,0,0,0) 64%, #000 82%, #000 100%)`
+      refractRef.current.style.clipPath = clip
+      refractRef.current.style.setProperty('-webkit-clip-path', clip)
+      refractRef.current.style.maskImage = rim
+      refractRef.current.style.setProperty('-webkit-mask-image', rim)
+      refractRef.current.style.opacity = '1'
+    }
+    if (mag2Ref.current) mag2Ref.current.style.transformOrigin = `${x}px ${y}px`
     if (lensRef.current) {
       lensRef.current.style.left = `${x}px`
       lensRef.current.style.top = `${y}px`
@@ -235,6 +247,51 @@ export const Stage05Loupe = () => {
           />
         </div>
 
+        {/* RIM REFRACTION — outer band of a stronger-magnified copy, masked to the edge */}
+        <div
+          ref={refractRef}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            pointerEvents: 'none',
+            opacity: 0,
+            clipPath: 'circle(0px at 50% 50%)',
+            WebkitClipPath: 'circle(0px at 50% 50%)',
+            filter: 'blur(0.6px)',
+            transition: 'opacity 0.18s',
+          }}
+        >
+          <div
+            ref={mag2Ref}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              transform: `scale(${MAG * 1.5})`,
+              transformOrigin: '50% 50%',
+              background: 'radial-gradient(circle at center, rgba(64,12,14,0.9), rgba(24,8,10,0.6))',
+            }}
+          >
+            {LOUPE_PHRASES.map((p, i) => (
+              <div
+                key={p.id}
+                style={{
+                  position: 'absolute',
+                  left: `${POS[i].x}%`,
+                  top: `${POS[i].y}%`,
+                  transform: 'translate(-50%, -50%)',
+                  width: 152,
+                  opacity: 0.5,
+                }}
+              >
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9.5, color: 'var(--red-soft)', textTransform: 'uppercase', marginBottom: 4 }}>⚑ {p.phrase}</div>
+                {p.hidden.map((h, j) => (
+                  <div key={j} style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, lineHeight: 1.4, color: '#F4CFCC' }}>{h}</div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* GLASS ring + crosshair + specular highlight */}
         <div
           ref={lensRef}
@@ -253,8 +310,13 @@ export const Stage05Loupe = () => {
             transition: 'opacity 0.18s',
           }}
         >
+          {/* chromatic aberration — red + blue rims offset in opposite directions */}
+          <span style={{ position: 'absolute', inset: -1, borderRadius: '50%', border: '2px solid rgba(255,60,60,0.5)', transform: 'translate(-1.6px, -1px)', mixBlendMode: 'screen', pointerEvents: 'none' }} />
+          <span style={{ position: 'absolute', inset: -1, borderRadius: '50%', border: '2px solid rgba(70,150,255,0.5)', transform: 'translate(1.6px, 1px)', mixBlendMode: 'screen', pointerEvents: 'none' }} />
+          {/* refraction bevel — glass thickness bends light at the edge */}
+          <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'radial-gradient(circle at center, transparent 66%, rgba(0,0,0,0.38) 83%, rgba(51,214,230,0.12) 95%, transparent 100%)', pointerEvents: 'none' }} />
           {/* glass specular */}
-          <span style={{ position: 'absolute', inset: 3, borderRadius: '50%', background: 'radial-gradient(120% 90% at 30% 18%, rgba(255,255,255,0.18), transparent 45%)', pointerEvents: 'none' }} />
+          <span style={{ position: 'absolute', inset: 3, borderRadius: '50%', background: 'radial-gradient(120% 90% at 30% 18%, rgba(255,255,255,0.2), transparent 45%)', pointerEvents: 'none' }} />
           <span style={{ position: 'absolute', left: '50%', top: 9, transform: 'translateX(-50%)', fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.14em', color: 'var(--cyan)' }}>X-RAY</span>
           <span style={{ position: 'absolute', left: '50%', top: '50%', width: 13, height: 1, background: 'rgba(51,214,230,0.55)', transform: 'translate(-50%,-50%)' }} />
           <span style={{ position: 'absolute', left: '50%', top: '50%', width: 1, height: 13, background: 'rgba(51,214,230,0.55)', transform: 'translate(-50%,-50%)' }} />
