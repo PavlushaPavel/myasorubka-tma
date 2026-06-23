@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 import { Reveal } from '../components/Reveal'
-import { CaseBar, ProgressLevels, SystemLabel } from '../components/ui'
+import { CaseBar, ProgressLevels, SystemLabel, CinematicStrip } from '../components/ui'
 import { useAppStore } from '../store/useAppStore'
 import { BABLO } from '../data/content'
+import finalSystem from '../assets/bg-final-system.webp'
 
 const STATS = [
   { label: 'ПЕРЕХОДЫ', value: '0' },
@@ -26,9 +27,10 @@ export const Stage17Bablo = () => {
   }
 
   return (
-    <div className="screen">
+    <div className="screen screen--final">
       <CaseBar id="CASE #001" status="REFERRAL" tone="amber" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={5} /></div>
+      <CinematicStrip src={finalSystem} label="CASE CLOSED / GROWTH CHANNEL ONLINE" tone="money" position="50% 62%" />
 
       <Reveal>
         <SystemLabel tone="amber">{BABLO.label}</SystemLabel>

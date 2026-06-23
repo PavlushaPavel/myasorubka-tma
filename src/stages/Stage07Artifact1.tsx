@@ -2,17 +2,19 @@ import { useEffect } from 'react'
 import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 import { Reveal } from '../components/Reveal'
-import { CaseBar, SystemLabel, ProgressLevels, ManifestList, UnlockFrame } from '../components/ui'
+import { CaseBar, SystemLabel, ProgressLevels, ManifestList, UnlockFrame, CinematicStrip } from '../components/ui'
 import { ARTIFACT1 } from '../data/content'
+import artifactVault from '../assets/bg-artifact-vault.webp'
 
 export const Stage07Artifact1 = () => {
   const { impact, select } = useTelegramHaptics()
   useEffect(() => { impact('heavy') }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="screen">
+    <div className="screen screen--artifact">
       <CaseBar id="CASE #001" status="ARTEFACT VAULT" tone="cyan" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={3} /></div>
+      <CinematicStrip src={artifactVault} label="EVIDENCE VAULT / ACCESS GRANTED" tone="amber" position="50% 72%" />
 
       {/* sealed evidence container unlocking */}
       <div style={{ marginBottom: 16 }}>

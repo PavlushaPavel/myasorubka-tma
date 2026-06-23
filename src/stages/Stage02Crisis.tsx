@@ -3,6 +3,7 @@ import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 import { Reveal } from '../components/Reveal'
 import { CaseBar, SystemLabel } from '../components/ui'
 import { CRISIS } from '../data/content'
+import specialistNoir from '../assets/specialist-noir.webp'
 
 export const Stage02Crisis = () => {
   const { impact } = useTelegramHaptics()
@@ -13,6 +14,12 @@ export const Stage02Crisis = () => {
 
       <Reveal delay={0.05}>
         <h1 style={{ fontSize: 'clamp(22px, 6.4vw, 29px)', marginBottom: 16, lineHeight: 1.12 }}>{CRISIS.title}</h1>
+      </Reveal>
+
+      <Reveal delay={0.08}>
+        <div className="character-frame">
+          <img src={specialistNoir} alt="Специалист ночью разбирает претензию клиента" />
+        </div>
       </Reveal>
 
       <Reveal delay={0.12}>
@@ -45,9 +52,9 @@ export const Stage02Crisis = () => {
 
       <Reveal delay={0.36}>
         <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.55, marginBottom: 10 }}>{CRISIS.doubtHead}</p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 18 }}>
+        <div className="doubt-stack">
           {CRISIS.doubts.map((d, i) => (
-            <p key={i} style={{ color: 'var(--text-faint)', fontSize: 13.5, lineHeight: 1.45, paddingLeft: 11, borderLeft: '2px solid var(--border)', fontStyle: 'italic' }}>{d}</p>
+            <p key={i} className="doubt-card">{d}</p>
           ))}
         </div>
       </Reveal>

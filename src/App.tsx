@@ -2,6 +2,12 @@ import type { ReactElement } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useAppStore } from './store/useAppStore'
 import { navigateScreen } from './lib/navigateScreen'
+import phasePressure from './assets/phase-pressure.webp'
+import phaseScan from './assets/phase-scan.webp'
+import artifactVault from './assets/bg-artifact-vault.webp'
+import practiceCase from './assets/bg-practice-case.webp'
+import proofBriefing from './assets/bg-proof-briefing.webp'
+import finalSystem from './assets/bg-final-system.webp'
 // ── Opening act (new «За что мы заплатили?» flow) ──
 import { Stage00Chat1 } from './stages/Stage00Chat1'
 import { Stage01Chat2 } from './stages/Stage01Chat2'
@@ -61,19 +67,40 @@ const Fallback = () => (
   </div>
 )
 
+const getPhase = (stage: number) => {
+  if (stage <= 7) return { id: 'pressure', label: 'CLIENT PRESSURE', image: phasePressure, color: 'red' }
+  if (stage <= 10) return { id: 'scan', label: 'FORENSIC SCAN', image: phaseScan, color: 'cyan' }
+  if (stage <= 14) return { id: 'artifact', label: 'EVIDENCE VAULT', image: artifactVault, color: 'amber' }
+  if (stage <= 17) return { id: 'practice', label: 'LIVE CASE', image: practiceCase, color: 'amber' }
+  if (stage <= 19) return { id: 'briefing', label: 'PROOF ROOM', image: proofBriefing, color: 'cyan' }
+  return { id: 'final', label: 'SYSTEM CONTROL', image: finalSystem, color: 'money' }
+}
+
 export default function App() {
   const stage = useAppStore((s) => s.currentStage)
   const Current = STAGES[stage] ?? Fallback
+  const phase = getPhase(stage)
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: 'var(--void)' }}>
+    <div className="app-shell">
+      <div className={`phase-art phase-art--${phase.id}`} style={{ backgroundImage: `url(${phase.image})` }} aria-hidden="true" />
+      <div className="ambient ambient-danger" />
+      <div className="ambient ambient-scan" />
+      <div className={`phase-hud phase-hud--${phase.color}`} aria-hidden="true">
+        <span>{String(stage + 1).padStart(2, '0')} / 22</span>
+        <span>{phase.label}</span>
+      </div>
+      <div className="case-rail" aria-hidden="true">
+        <span>MYASORUBKA / FORENSIC UNIT</span>
+        <span>LIVE CASE</span>
+      </div>
       {supportsVT ? (
-        <div style={{ position: 'absolute', inset: 0 }}>
+        <div className="stage-viewport">
           <Current />
         </div>
       ) : (
         <AnimatePresence mode="wait">
-          <motion.div key={stage} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} style={{ position: 'absolute', inset: 0 }}>
+          <motion.div className="stage-viewport" key={stage} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
             <Current />
           </motion.div>
         </AnimatePresence>

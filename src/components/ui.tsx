@@ -1,6 +1,29 @@
 import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
+export const CinematicStrip = ({
+  src,
+  label,
+  tone = 'cyan',
+  position = '50% 60%',
+}: {
+  src: string
+  label: string
+  tone?: 'red' | 'cyan' | 'amber' | 'money'
+  position?: string
+}) => (
+  <motion.figure
+    className={`cinematic-strip cinematic-strip--${tone}`}
+    initial={{ opacity: 0, y: 12, filter: 'blur(8px)' }}
+    animate={{ opacity: 1, y: 0, filter: 'blur(0)' }}
+    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+  >
+    <img src={src} alt="" style={{ objectPosition: position }} />
+    <figcaption>{label}</figcaption>
+    <span className="cinematic-reticle" aria-hidden="true" />
+  </motion.figure>
+)
+
 /* Chat bubble — client (incoming, left) or you (outgoing, right). */
 export const ChatBubble = ({
   children,
@@ -14,46 +37,33 @@ export const ChatBubble = ({
   delay?: number
 }) => {
   const isClient = side === 'client'
+  const time = `11:${String(42 + Math.round(delay * 4)).padStart(2, '0')}`
   return (
     <motion.div
+      className={`tg-bubble tg-bubble--${isClient ? 'incoming' : 'outgoing'}${harsh ? ' tg-bubble--critical' : ''}`}
       initial={{ opacity: 0, y: 10, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ delay, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      style={{
-        alignSelf: isClient ? 'flex-start' : 'flex-end',
-        maxWidth: '88%',
-        background: isClient
-          ? (harsh ? 'linear-gradient(90deg, rgba(255,42,42,0.18), rgba(15,19,26,0.9))' : 'rgba(15,19,26,0.9)')
-          : 'rgba(0,217,255,0.1)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderLeft: isClient ? `3px solid ${harsh ? 'var(--red)' : 'var(--red-dark)'}` : '1px solid rgba(0,217,255,0.3)',
-        borderRight: isClient ? '1px solid rgba(255,255,255,0.08)' : '3px solid var(--cyan)',
-        borderRadius: 'var(--radius-sm)',
-        padding: '11px 14px',
-        color: isClient ? 'var(--text)' : 'var(--ice)',
-        fontFamily: 'var(--font-mono)',
-        fontSize: 13,
-        lineHeight: 1.5,
-        boxShadow: 'var(--shadow-md)',
-      }}
+      style={{ alignSelf: isClient ? 'flex-start' : 'flex-end' }}
     >
-      {children}
+      <span className="tg-bubble-text">{children}</span>
+      <span className="tg-bubble-meta">{harsh && <b>!</b>}{time}{!isClient && <i>✓✓</i>}</span>
     </motion.div>
   )
 }
 
 /* Chat header: avatar dot + name + online status. */
 export const ChatHeader = ({ name }: { name: string }) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, paddingBottom: 12, borderBottom: '1px solid var(--border)' }}>
-    <span style={{ width: 34, height: 34, borderRadius: '50%', background: 'linear-gradient(150deg, var(--steel), var(--graphite))', border: '1px solid var(--border-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15, color: 'var(--text-muted)' }}>
+  <div className="tg-header">
+    <span className="tg-avatar">
       {name.charAt(0)}
     </span>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15, textTransform: 'uppercase', letterSpacing: '0.02em', color: 'var(--text)' }}>{name}</span>
-      <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#27c93f', boxShadow: '0 0 6px #27c93f' }} />
-        <span className="sys" style={{ fontSize: 10 }}>в сети</span>
-      </span>
+    <div className="tg-contact">
+      <span>{name}</span>
+      <small>в сети</small>
+    </div>
+    <div className="tg-actions" aria-hidden="true">
+      <span>⌕</span><span>⋮</span>
     </div>
   </div>
 )
@@ -275,6 +285,7 @@ export const OptionChip = ({
     <motion.button
       onClick={onToggle}
       whileTap={{ scale: 0.985 }}
+      className={`answer-option answer-option--${state}${selected ? ' is-selected' : ''}`}
       style={{
         width: '100%',
         display: 'flex',
@@ -289,10 +300,10 @@ export const OptionChip = ({
         color: 'var(--text)',
         fontSize: 14,
         lineHeight: 1.35,
-        transition: 'background 0.2s, border-color 0.2s',
+        transition: 'background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s',
       }}
     >
-      <span
+      <span className="answer-marker"
         style={{
           flexShrink: 0,
           width: 16,

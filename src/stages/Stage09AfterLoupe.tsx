@@ -1,8 +1,9 @@
 import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 import { Reveal } from '../components/Reveal'
-import { CaseBar, ProgressLevels, ManifestList } from '../components/ui'
+import { CaseBar, ProgressLevels, ManifestList, CinematicStrip } from '../components/ui'
 import { AFTER_LOUPE } from '../data/content'
+import phaseScan from '../assets/phase-scan.webp'
 
 export const Stage09AfterLoupe = () => {
   const { impact } = useTelegramHaptics()
@@ -15,6 +16,8 @@ export const Stage09AfterLoupe = () => {
       <Reveal delay={0.05}>
         <h1 style={{ fontSize: 'clamp(23px, 6.6vw, 30px)', marginBottom: 14, lineHeight: 1.14 }}>{AFTER_LOUPE.title}</h1>
       </Reveal>
+
+      <CinematicStrip src={phaseScan} label="MODE SHIFT / ОПРАВДАНИЯ → ДАННЫЕ" tone="cyan" position="50% 63%" />
 
       <Reveal delay={0.12}>
         <div className="panel" style={{ marginBottom: 16 }}>

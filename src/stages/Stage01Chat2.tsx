@@ -25,9 +25,9 @@ export const Stage01Chat2 = () => {
         </div>
       </Reveal>
 
-      <div className="panel" style={{ padding: '14px 14px 16px', marginBottom: 18 }}>
+      <div className="panel tg-chat" style={{ padding: 0, marginBottom: 18 }}>
         <ChatHeader name={CHAT2.client} />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div className="tg-message-list">
           {CHAT2.messages.map((m, i) => (
             <ChatBubble key={i} side="client" harsh={i >= CHAT2.messages.length - 2} delay={0.15 + i * 0.22}>
               {m}

@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
-import { CaseBar, SystemLabel, ProgressLevels, OptionChip, ReactionPanel } from '../components/ui'
+import { CaseBar, SystemLabel, ProgressLevels, OptionChip, ReactionPanel, CinematicStrip } from '../components/ui'
 import { PRACTICE as P } from '../data/content'
+import practiceCase from '../assets/bg-practice-case.webp'
 
 export const Stage11Practice = () => {
   const { impact, select, notify } = useTelegramHaptics()
@@ -38,9 +39,10 @@ export const Stage11Practice = () => {
   const clean = !hasTest && !hasWait
 
   return (
-    <div className="screen">
+    <div className="screen screen--practice">
       <CaseBar id="CASE #003" status="NEW CASE LOADED" tone="amber" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={4} /></div>
+      <CinematicStrip src={practiceCase} label="NEW CASE / КУПЕЛИ · МОСКВА И МО" tone="amber" position="50% 53%" />
 
       <SystemLabel tone="cyan">{P.caseLabel}</SystemLabel>
       <h1 style={{ fontSize: 'clamp(21px, 6vw, 28px)', margin: '8px 0 14px' }}>Спаси проект до запуска</h1>

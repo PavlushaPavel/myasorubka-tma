@@ -8,7 +8,7 @@ export const Stage10Longread3 = () => {
   const { impact } = useTelegramHaptics()
 
   return (
-    <div className="screen">
+    <div className="screen screen--artifact">
       <CaseBar id="CASE #001" status="UPGRADE PATH" tone="amber" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={3} /></div>
 

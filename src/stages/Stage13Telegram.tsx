@@ -9,7 +9,7 @@ export const Stage13Telegram = () => {
   const { impact, select } = useTelegramHaptics()
 
   return (
-    <div className="screen">
+    <div className="screen screen--practice">
       <CaseBar id="CASE #001" status="REMOTE HUB" tone="cyan" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={4} /></div>
 

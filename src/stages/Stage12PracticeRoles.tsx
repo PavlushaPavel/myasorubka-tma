@@ -41,7 +41,7 @@ export const Stage12PracticeRoles = () => {
   const hasTrap = options.some((o) => o.trap && sel.includes(o.key))
 
   return (
-    <div className="screen">
+    <div className="screen screen--practice">
       <CaseBar id="CASE #003" status="ROLE PRACTICE" tone="amber" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={4} /></div>
 

@@ -1,16 +1,19 @@
 import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 import { Reveal } from '../components/Reveal'
-import { CaseBar, ProgressLevels, SystemLabel } from '../components/ui'
+import { CaseBar, ProgressLevels, SystemLabel, CinematicStrip } from '../components/ui'
 import { OFFER } from '../data/content'
+import finalSystem from '../assets/bg-final-system.webp'
 
 export const Stage16Offer = () => {
   const { impact, select } = useTelegramHaptics()
 
   return (
-    <div className="screen">
+    <div className="screen screen--final">
       <CaseBar id="CASE #001" status="FINAL ARTEFACT" tone="cyan" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={5} /></div>
+
+      <CinematicStrip src={finalSystem} label="SYSTEM ARCHITECT / CONTROL RESTORED" tone="money" position="50% 68%" />
 
       <Reveal>
         <div className="panel" style={{ borderColor: 'rgba(0,217,255,0.4)', background: 'linear-gradient(160deg, rgba(0,217,255,0.07), rgba(255,177,59,0.05))', boxShadow: 'var(--shadow-lg)' }}>

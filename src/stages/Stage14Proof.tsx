@@ -8,7 +8,7 @@ export const Stage14Proof = () => {
   const { impact, select } = useTelegramHaptics()
 
   return (
-    <div className="screen">
+    <div className="screen screen--briefing">
       <CaseBar id="CASE #001" status="PROOF" tone="cyan" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={5} /></div>
 

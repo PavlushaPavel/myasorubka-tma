@@ -10,7 +10,7 @@ export const Stage09Artifact2 = () => {
   useEffect(() => { impact('heavy') }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="screen">
+    <div className="screen screen--artifact">
       <CaseBar id="CASE #001" status="ARTEFACT VAULT" tone="cyan" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={3} /></div>
 

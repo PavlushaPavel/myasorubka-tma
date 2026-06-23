@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 import { Reveal } from '../components/Reveal'
@@ -8,6 +8,19 @@ import { ROLE_SELECT } from '../data/content'
 import { ROLES } from '../data/roles'
 import type { RoleId } from '../types'
 import { useAppStore } from '../store/useAppStore'
+import roleDirector from '../assets/role-director.webp'
+import roleAvito from '../assets/role-avito.webp'
+import roleVk from '../assets/role-vk.webp'
+import roleCreative from '../assets/role-creative.webp'
+import roleLanding from '../assets/role-landing.webp'
+
+const ROLE_ART: Record<RoleId, string> = {
+  director: roleDirector,
+  avito: roleAvito,
+  vk: roleVk,
+  creative: roleCreative,
+  landing: roleLanding,
+}
 
 export const Stage04Role = () => {
   const { impact, select } = useTelegramHaptics()
@@ -61,6 +74,7 @@ export const Stage04Role = () => {
                   transition: 'opacity 0.25s, border-color 0.25s, background 0.25s, box-shadow 0.25s',
                 }}
               >
+                <img className="role-thumb" src={ROLE_ART[r.id]} alt="" />
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div
                     style={{
@@ -97,18 +111,36 @@ export const Stage04Role = () => {
         })}
       </div>
 
-      {selected && (
-        <motion.div
-          initial={{ opacity: 0, y: 16, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          style={{ marginTop: 'auto', paddingTop: 18 }}
-        >
-          <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(5, 'scan') }}>
-            {ROLE_SELECT.cta}
-          </button>
-        </motion.div>
-      )}
+      <AnimatePresence mode="wait">
+        {selected && (() => {
+          const role = ROLES.find((item) => item.id === selected)!
+          return (
+            <motion.section
+              key={selected}
+              className="role-dossier"
+              initial={{ opacity: 0, y: 22, clipPath: 'inset(0 0 100% 0)' }}
+              animate={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.48, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="role-dossier-visual">
+                <img src={ROLE_ART[selected]} alt={`${role.label} под давлением клиента`} />
+                <div className="role-dossier-scan" />
+                <span className="tag tag-red">КРАЙНИЙ: ВЫ</span>
+              </div>
+              <div className="role-dossier-copy">
+                <span className="sys sys-amber">PERSONNEL FILE / {selected.toUpperCase()}</span>
+                <h2>{role.label}</h2>
+                <p>{role.hire}</p>
+                <div className="role-dossier-risk"><span>РИСК</span><b>ПРЕТЕНЗИЯ ЗА РЕЗУЛЬТАТ</b></div>
+              </div>
+              <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(5, 'scan') }}>
+                {ROLE_SELECT.cta}
+              </button>
+            </motion.section>
+          )
+        })()}
+      </AnimatePresence>
     </div>
   )
 }

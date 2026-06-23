@@ -3,8 +3,9 @@ import { motion } from 'framer-motion'
 import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 import { Reveal } from '../components/Reveal'
-import { CaseBar, ProgressLevels, SystemLabel } from '../components/ui'
+import { CaseBar, ProgressLevels, SystemLabel, CinematicStrip } from '../components/ui'
 import { VIDEO } from '../data/content'
+import proofBriefing from '../assets/bg-proof-briefing.webp'
 
 export const Stage15Video = () => {
   const { impact, select } = useTelegramHaptics()
@@ -18,9 +19,10 @@ export const Stage15Video = () => {
   const corner = (pos: React.CSSProperties): React.CSSProperties => ({ position: 'absolute', width: 16, height: 16, borderColor: 'var(--cyan)', borderStyle: 'solid', ...pos })
 
   return (
-    <div className="screen">
+    <div className="screen screen--briefing">
       <CaseBar id="CASE #001" status="FINAL BRIEFING" tone="cyan" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={5} /></div>
+      <CinematicStrip src={proofBriefing} label="FINAL BRIEFING / VERIFIED MATERIALS" tone="cyan" position="50% 67%" />
 
       <Reveal>
         <SystemLabel tone="cyan">FINAL ARTEFACT</SystemLabel>

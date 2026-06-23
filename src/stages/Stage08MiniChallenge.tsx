@@ -36,7 +36,7 @@ export const Stage08MiniChallenge = () => {
   const hasTrap = M.options.some((o) => o.trap && sel.includes(o.key))
 
   return (
-    <div className="screen">
+    <div className="screen screen--artifact">
       <CaseBar id="CASE #001" status="CHECKPOINT" tone="amber" />
       <div style={{ marginBottom: 16 }}><ProgressLevels current={3} /></div>
 
