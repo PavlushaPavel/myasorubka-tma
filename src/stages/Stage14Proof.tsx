@@ -67,7 +67,7 @@ export const Stage14Proof = () => {
         </div>
       </Reveal>
 
-      <button className="btn btn-primary" onClick={() => { select(); navigateScreen(20, 'scan') }}>{PROOF.cta}</button>
+      <button className="btn btn-primary" onClick={() => { select(); navigateScreen(19, 'scan') }}>{PROOF.cta}</button>
     </div>
   )
 }

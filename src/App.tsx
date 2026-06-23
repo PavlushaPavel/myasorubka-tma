@@ -55,10 +55,10 @@ const STAGES: Record<number, () => ReactElement> = {
   15: Longread3,
   16: Practice,
   17: PracticeRoles,
-  18: Telegram,
-  19: Proof,
-  20: Video,
-  21: Offer,
+  18: Proof,
+  19: Video,
+  20: Offer,
+  21: Telegram,
   22: Bablo,
 }
 
@@ -73,8 +73,8 @@ const getPhase = (stage: number) => {
   if (stage <= 8) return { id: 'pressure', label: 'CLIENT PRESSURE', image: phasePressure, color: 'red' }
   if (stage <= 11) return { id: 'scan', label: 'FORENSIC SCAN', image: phaseScan, color: 'cyan' }
   if (stage <= 15) return { id: 'artifact', label: 'EVIDENCE VAULT', image: artifactVault, color: 'amber' }
-  if (stage <= 18) return { id: 'practice', label: 'LIVE CASE', image: practiceCase, color: 'amber' }
-  if (stage <= 20) return { id: 'briefing', label: 'PROOF ROOM', image: proofBriefing, color: 'cyan' }
+  if (stage <= 17) return { id: 'practice', label: 'LIVE CASE', image: practiceCase, color: 'amber' }
+  if (stage <= 19) return { id: 'briefing', label: 'PROOF ROOM', image: proofBriefing, color: 'cyan' }
   return { id: 'final', label: 'SYSTEM CONTROL', image: finalSystem, color: 'money' }
 }
 

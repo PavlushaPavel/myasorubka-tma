@@ -52,8 +52,8 @@ export const Stage16Offer = () => {
       <button className="btn btn-primary" style={{ marginTop: 10 }} onClick={() => { impact('medium'); window.Telegram?.WebApp?.showAlert?.('Оплата будет доступна после запуска. Следи за обновлениями!') }}>
         {OFFER.cta}
       </button>
-      <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(22, 'scan') }}>
-        Открыть кнопку «Бабло»
+      <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(21, 'scan') }}>
+        Кстати, вот Telegram
       </button>
     </div>
   )

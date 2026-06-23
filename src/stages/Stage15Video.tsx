@@ -115,7 +115,7 @@ export const Stage15Video = () => {
         </div>
       </Reveal>
 
-      <button className="btn btn-primary" style={{ marginTop: 18 }} onClick={() => { select(); navigateScreen(21, 'scan') }}>{VIDEO.cta}</button>
+      <button className="btn btn-primary" style={{ marginTop: 18 }} onClick={() => { select(); navigateScreen(20, 'scan') }}>{VIDEO.cta}</button>
     </div>
   )
 }
