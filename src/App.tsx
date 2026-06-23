@@ -8,6 +8,7 @@ import artifactVault from './assets/bg-artifact-vault.webp'
 import practiceCase from './assets/bg-practice-case.webp'
 import proofBriefing from './assets/bg-proof-briefing.webp'
 import finalSystem from './assets/bg-final-system.webp'
+import { StagePreframe } from './stages/StagePreframe'
 // ── Opening act (new «За что мы заплатили?» flow) ──
 import { Stage00Chat1 } from './stages/Stage00Chat1'
 import { Stage01Chat2 } from './stages/Stage01Chat2'
@@ -36,28 +37,29 @@ import { Stage17Bablo as Bablo } from './stages/Stage17Bablo'
 const supportsVT = typeof document !== 'undefined' && 'startViewTransition' in document
 
 const STAGES: Record<number, () => ReactElement> = {
-  0: Stage00Chat1,
-  1: Stage01Chat2,
-  2: Stage02Crisis,
-  3: Stage03Escalation,
-  4: Stage04Role,
-  5: Stage05Challenge,
-  6: Stage06ClientSays,
-  7: Stage07Spiral,
-  8: Stage08Loupe,
-  9: Stage09AfterLoupe,
-  10: Stage10Bridge,
-  11: Artifact1,
-  12: MiniChallenge,
-  13: Artifact2,
-  14: Longread3,
-  15: Practice,
-  16: PracticeRoles,
-  17: Telegram,
-  18: Proof,
-  19: Video,
-  20: Offer,
-  21: Bablo,
+  0: StagePreframe,
+  1: Stage00Chat1,
+  2: Stage01Chat2,
+  3: Stage02Crisis,
+  4: Stage03Escalation,
+  5: Stage04Role,
+  6: Stage05Challenge,
+  7: Stage06ClientSays,
+  8: Stage07Spiral,
+  9: Stage08Loupe,
+  10: Stage09AfterLoupe,
+  11: Stage10Bridge,
+  12: Artifact1,
+  13: MiniChallenge,
+  14: Artifact2,
+  15: Longread3,
+  16: Practice,
+  17: PracticeRoles,
+  18: Telegram,
+  19: Proof,
+  20: Video,
+  21: Offer,
+  22: Bablo,
 }
 
 const Fallback = () => (
@@ -68,11 +70,11 @@ const Fallback = () => (
 )
 
 const getPhase = (stage: number) => {
-  if (stage <= 7) return { id: 'pressure', label: 'CLIENT PRESSURE', image: phasePressure, color: 'red' }
-  if (stage <= 10) return { id: 'scan', label: 'FORENSIC SCAN', image: phaseScan, color: 'cyan' }
-  if (stage <= 14) return { id: 'artifact', label: 'EVIDENCE VAULT', image: artifactVault, color: 'amber' }
-  if (stage <= 17) return { id: 'practice', label: 'LIVE CASE', image: practiceCase, color: 'amber' }
-  if (stage <= 19) return { id: 'briefing', label: 'PROOF ROOM', image: proofBriefing, color: 'cyan' }
+  if (stage <= 8) return { id: 'pressure', label: 'CLIENT PRESSURE', image: phasePressure, color: 'red' }
+  if (stage <= 11) return { id: 'scan', label: 'FORENSIC SCAN', image: phaseScan, color: 'cyan' }
+  if (stage <= 15) return { id: 'artifact', label: 'EVIDENCE VAULT', image: artifactVault, color: 'amber' }
+  if (stage <= 18) return { id: 'practice', label: 'LIVE CASE', image: practiceCase, color: 'amber' }
+  if (stage <= 20) return { id: 'briefing', label: 'PROOF ROOM', image: proofBriefing, color: 'cyan' }
   return { id: 'final', label: 'SYSTEM CONTROL', image: finalSystem, color: 'money' }
 }
 
@@ -87,7 +89,7 @@ export default function App() {
       <div className="ambient ambient-danger" />
       <div className="ambient ambient-scan" />
       <div className={`phase-hud phase-hud--${phase.color}`} aria-hidden="true">
-        <span>{String(stage + 1).padStart(2, '0')} / 22</span>
+        <span>{stage === 0 ? '00' : String(stage).padStart(2, '0')} / 22</span>
         <span>{phase.label}</span>
       </div>
       <div className="case-rail" aria-hidden="true">

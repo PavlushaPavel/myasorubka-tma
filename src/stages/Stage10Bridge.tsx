@@ -40,7 +40,7 @@ export const Stage10Bridge = () => {
       </Reveal>
 
       <Reveal delay={0.36} style={{ marginTop: 'auto' }}>
-        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(11, 'scan') }}>{BRIDGE.cta}</button>
+        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(12, 'scan') }}>{BRIDGE.cta}</button>
       </Reveal>
     </div>
   )

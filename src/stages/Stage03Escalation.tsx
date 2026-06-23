@@ -46,7 +46,7 @@ export const Stage03Escalation = () => {
       </Reveal>
 
       <Reveal delay={0.78} style={{ marginTop: 'auto' }}>
-        <button className="btn btn-danger" onClick={() => { impact('medium'); navigateScreen(4, 'scan') }}>{ESCALATION.cta}</button>
+        <button className="btn btn-danger" onClick={() => { impact('medium'); navigateScreen(5, 'scan') }}>{ESCALATION.cta}</button>
       </Reveal>
     </div>
   )

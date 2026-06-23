@@ -65,7 +65,7 @@ export const Stage12PracticeRoles = () => {
           <ReactionPanel label={hasTrap ? 'НЕ ТУДА' : goodLabel} tone={hasTrap ? 'red' : 'cyan'}>
             {hasTrap ? trapReaction : goodReaction}
           </ReactionPanel>
-          <button className="btn btn-primary" onClick={() => { select(); navigateScreen(17, 'scan') }}>{PRACTICE_ROLES.cta}</button>
+          <button className="btn btn-primary" onClick={() => { select(); navigateScreen(18, 'scan') }}>{PRACTICE_ROLES.cta}</button>
         </motion.div>
       )}
     </div>

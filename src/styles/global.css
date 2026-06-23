@@ -98,7 +98,16 @@ html, body, #root {
   mask-image: linear-gradient(to bottom, #000, transparent 80%);
 }
 
-.stage-viewport { position: absolute; inset: 0; z-index: 2; }
+.stage-viewport {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: 2;
+  width: min(100%, 430px);
+  transform: translateX(-50%);
+  overflow: hidden;
+}
 
 .phase-art {
   position: absolute;
@@ -248,6 +257,151 @@ body::after {
   z-index: -1;
   pointer-events: none;
   background: linear-gradient(90deg, rgba(0,0,0,.24), transparent 20% 80%, rgba(0,0,0,.24));
+}
+
+.preframe-screen {
+  gap: 14px;
+}
+.preframe-screen .panel {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.014)),
+    rgba(10, 13, 18, .84);
+}
+.preframe-hero {
+  display: grid;
+  gap: 12px;
+  padding: 8px 0 2px;
+}
+.preframe-hero .case-stamp {
+  width: fit-content;
+  max-width: calc(100vw - 44px);
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+.preframe-hero h1 {
+  max-width: 100%;
+  font-size: clamp(20px, 5.65vw, 30px);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+.preframe-hero p {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.preframe-card,
+.preframe-claim,
+.preframe-chain,
+.preframe-rules,
+.preframe-rule {
+  display: grid;
+  gap: 12px;
+}
+.preframe-jobs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.preframe-jobs span {
+  padding: 8px 10px;
+  border: 1px solid rgba(255,177,59,.28);
+  border-radius: 999px;
+  background: rgba(255,177,59,.07);
+  color: #ffe1ad;
+  font: 11px/1.1 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+.preframe-claim {
+  border-color: rgba(255,42,42,.34);
+  background:
+    radial-gradient(circle at top right, rgba(255,42,42,.14), transparent 42%),
+    rgba(16, 12, 15, .88) !important;
+}
+.preframe-quote {
+  display: grid;
+  gap: 7px;
+}
+.preframe-quote span {
+  padding: 9px 11px;
+  border: 1px solid rgba(255,255,255,.075);
+  border-left: 3px solid rgba(255,42,42,.72);
+  border-radius: 5px;
+  background: rgba(255,255,255,.035);
+  color: var(--text);
+  font: 13px/1.25 var(--font-mono);
+}
+.preframe-quote .is-critical {
+  color: #ffd7d7;
+  border-color: rgba(255,42,42,.42);
+  background: rgba(255,42,42,.1);
+  box-shadow: 0 0 22px rgba(255,42,42,.12);
+}
+.preframe-claim p,
+.preframe-chain p,
+.preframe-rule p {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  line-height: 1.52;
+}
+.preframe-chain p span {
+  color: var(--amber-soft);
+}
+.blame-equation {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 8px;
+  align-items: stretch;
+}
+.blame-equation span,
+.blame-equation strong {
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 9px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.035);
+  color: var(--text-muted);
+  text-align: center;
+  font: 11px/1.25 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.blame-equation strong {
+  grid-column: 1 / -1;
+  color: var(--red-soft);
+  border-color: rgba(255,42,42,.42);
+  background: rgba(255,42,42,.09);
+}
+.blame-equation i {
+  display: grid;
+  place-items: center;
+  color: var(--red);
+  font-style: normal;
+  font-family: var(--font-mono);
+}
+.preframe-rules ul {
+  list-style: none;
+  display: grid;
+  gap: 9px;
+}
+.preframe-rules li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--text-muted);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+.preframe-rules li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--cyan);
+  font-size: 11px;
+}
+.preframe-rule {
+  border-color: rgba(255,42,42,.3);
 }
 
 h1, h2, h3 {

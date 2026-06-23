@@ -100,7 +100,7 @@ export const Stage11Practice = () => {
           {hasWait && <ReactionPanel label={P.reactions.wait.label} tone="red">{P.reactions.wait.text}</ReactionPanel>}
           {hasTest && <ReactionPanel label={P.reactions.test.label} tone="red" delay={hasWait ? 0.1 : 0}>{P.reactions.test.text}</ReactionPanel>}
           {clean && <ReactionPanel label={P.reactions.good.label} tone="cyan">{P.reactions.good.text}</ReactionPanel>}
-          <button className="btn btn-primary" onClick={() => { select(); navigateScreen(16, 'scan') }}>{P.cta}</button>
+          <button className="btn btn-primary" onClick={() => { select(); navigateScreen(17, 'scan') }}>{P.cta}</button>
         </motion.div>
       )}
     </div>

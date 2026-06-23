@@ -360,7 +360,7 @@ export const Stage08Loupe = () => {
             <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.55, marginBottom: 14, paddingLeft: 11, borderLeft: '2px solid var(--cyan)' }}>
               {LOUPE.doneNote}
             </p>
-            <button className="btn btn-primary" onClick={() => { select(); navigateScreen(9, 'scan') }}>
+            <button className="btn btn-primary" onClick={() => { select(); navigateScreen(10, 'scan') }}>
               {LOUPE.cta}
             </button>
           </motion.div>

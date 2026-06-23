@@ -32,7 +32,7 @@ export const Stage07Spiral = () => {
       </Reveal>
 
       <Reveal delay={0.25 + SPIRAL.dialogue.length * 0.25} style={{ marginTop: 'auto' }}>
-        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(8, 'scan') }}>{SPIRAL.cta}</button>
+        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(9, 'scan') }}>{SPIRAL.cta}</button>
       </Reveal>
     </div>
   )

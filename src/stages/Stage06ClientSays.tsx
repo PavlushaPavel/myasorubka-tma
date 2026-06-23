@@ -38,7 +38,7 @@ export const Stage06ClientSays = () => {
       </div>
 
       <Reveal delay={0.6} style={{ marginTop: 'auto' }}>
-        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(7, 'scan') }}>{CLIENT_SAYS.cta}</button>
+        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(8, 'scan') }}>{CLIENT_SAYS.cta}</button>
       </Reveal>
     </div>
   )

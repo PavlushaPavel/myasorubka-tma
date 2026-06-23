@@ -42,7 +42,7 @@ export const Stage09AfterLoupe = () => {
       </Reveal>
 
       <Reveal delay={0.38} style={{ marginTop: 'auto' }}>
-        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(10, 'scan') }}>{AFTER_LOUPE.cta}</button>
+        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(11, 'scan') }}>{AFTER_LOUPE.cta}</button>
       </Reveal>
     </div>
   )

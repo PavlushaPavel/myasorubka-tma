@@ -69,7 +69,7 @@ export const Stage05Challenge = () => {
           <ReactionPanel label={reaction.label} tone={isCorrect ? 'cyan' : 'red'}>
             {reaction.text}
           </ReactionPanel>
-          <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(6, 'scan') }}>
+          <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(7, 'scan') }}>
             {CHALLENGE.cta}
           </button>
         </motion.div>

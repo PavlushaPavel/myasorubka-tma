@@ -134,7 +134,7 @@ export const Stage04Role = () => {
                 <p>{role.hire}</p>
                 <div className="role-dossier-risk"><span>РИСК</span><b>ПРЕТЕНЗИЯ ЗА РЕЗУЛЬТАТ</b></div>
               </div>
-              <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(5, 'scan') }}>
+              <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(6, 'scan') }}>
                 {ROLE_SELECT.cta}
               </button>
             </motion.section>

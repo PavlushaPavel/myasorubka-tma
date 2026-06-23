@@ -37,7 +37,7 @@ export const Stage01Chat2 = () => {
       </div>
 
       <Reveal delay={0.15 + CHAT2.messages.length * 0.22} style={{ marginTop: 'auto' }}>
-        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(2, 'scan') }}>
+        <button className="btn btn-primary" onClick={() => { impact('medium'); navigateScreen(3, 'scan') }}>
           {CHAT2.cta}
         </button>
       </Reveal>
