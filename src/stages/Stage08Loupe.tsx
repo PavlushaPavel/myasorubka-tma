@@ -8,15 +8,15 @@ import { LOUPE, LOUPE_PHRASES } from '../data/content'
 
 /* scattered positions (% of board) — one per LOUPE_PHRASES entry */
 const POS = [
-  { x: 27, y: 15 },
-  { x: 72, y: 21 },
-  { x: 30, y: 44 },
-  { x: 73, y: 49 },
-  { x: 25, y: 74 },
-  { x: 71, y: 80 },
+  { x: 28, y: 15 },
+  { x: 72, y: 29 },
+  { x: 28, y: 43 },
+  { x: 72, y: 57 },
+  { x: 28, y: 71 },
+  { x: 72, y: 85 },
 ]
-const R = 88 // lens radius (px)
-const MAG = 1.32 // magnification factor under the glass
+const R = 112 // lens radius (px)
+const MAG = 1.18 // magnification factor under the glass
 
 export const Stage08Loupe = () => {
   const { impact, select } = useTelegramHaptics()
@@ -120,7 +120,7 @@ export const Stage08Loupe = () => {
         onPointerDown={onPointerDown}
         style={{
           position: 'relative',
-          height: 'clamp(380px, 56vh, 540px)',
+          height: 'clamp(560px, 72vh, 700px)',
           flexShrink: 0,
           borderRadius: 'var(--radius)',
           overflow: 'hidden',
@@ -143,7 +143,7 @@ export const Stage08Loupe = () => {
               left: `${POS[i].x}%`,
               top: `${POS[i].y}%`,
               transform: 'translate(-50%, -50%)',
-              width: 134,
+              width: 150,
               textAlign: 'center',
               pointerEvents: 'none',
             }}
@@ -152,14 +152,14 @@ export const Stage08Loupe = () => {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 600,
-                fontSize: 14,
+                fontSize: 14.5,
                 textTransform: 'uppercase',
                 letterSpacing: '0.01em',
                 color: scanned.includes(p.id) ? 'var(--text-faint)' : 'var(--amber)',
                 background: 'rgba(255,177,59,0.07)',
                 border: '1px solid rgba(255,177,59,0.22)',
                 borderRadius: 'var(--radius-sm)',
-                padding: '8px 10px',
+                padding: '10px 11px',
                 lineHeight: 1.2,
               }}
             >
@@ -213,17 +213,17 @@ export const Stage08Loupe = () => {
                   left: `${POS[i].x}%`,
                   top: `${POS[i].y}%`,
                   transform: 'translate(-50%, -50%)',
-                  width: 152,
+                  width: 178,
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 5 }}>
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8, letterSpacing: '0.1em', color: '#07090d', background: 'var(--red)', padding: '1px 4px', borderRadius: 2, fontWeight: 700 }}>CRITICAL</span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9.5, color: 'var(--red-soft)', textTransform: 'uppercase', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>«{p.phrase}»</span>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--red-soft)', textTransform: 'uppercase', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>«{p.phrase}»</span>
                 </div>
                 {p.hidden.map((h, j) => (
                   <div key={j} style={{ display: 'flex', gap: 5, alignItems: 'flex-start', marginBottom: 3 }}>
                     <span style={{ color: 'var(--red)', fontSize: 10, lineHeight: 1.4, flexShrink: 0, fontWeight: 700 }}>✕</span>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, lineHeight: 1.4, color: '#F4CFCC' }}>{h}</span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11.4, lineHeight: 1.45, color: '#F4CFCC' }}>{h}</span>
                   </div>
                 ))}
               </div>
@@ -274,13 +274,13 @@ export const Stage08Loupe = () => {
                   left: `${POS[i].x}%`,
                   top: `${POS[i].y}%`,
                   transform: 'translate(-50%, -50%)',
-                  width: 152,
+                  width: 178,
                   opacity: 0.5,
                 }}
               >
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9.5, color: 'var(--red-soft)', textTransform: 'uppercase', marginBottom: 4 }}>⚑ {p.phrase}</div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--red-soft)', textTransform: 'uppercase', marginBottom: 5 }}>⚑ {p.phrase}</div>
                 {p.hidden.map((h, j) => (
-                  <div key={j} style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, lineHeight: 1.4, color: '#F4CFCC' }}>{h}</div>
+                  <div key={j} style={{ fontFamily: 'var(--font-mono)', fontSize: 11.4, lineHeight: 1.45, color: '#F4CFCC' }}>{h}</div>
                 ))}
               </div>
             ))}
