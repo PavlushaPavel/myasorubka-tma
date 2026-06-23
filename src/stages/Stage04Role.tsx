@@ -24,8 +24,9 @@ const ROLE_ART: Record<RoleId, string> = {
 
 export const Stage04Role = () => {
   const { impact, select } = useTelegramHaptics()
+  const storedRole = useAppStore((s) => s.role)
   const setRole = useAppStore((s) => s.setRole)
-  const [selected, setSelected] = useState<RoleId | null>(null)
+  const [selected, setSelected] = useState<RoleId | null>(storedRole)
 
   const pick = (id: RoleId) => {
     select()

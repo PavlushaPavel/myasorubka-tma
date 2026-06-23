@@ -1,5 +1,9 @@
 import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import type { RoleId } from '../types'
+
+const MAX_STAGE = 22
+const STORAGE_KEY = 'myasorubka_progress_v1'
 
 interface AppState {
   currentStage: number
@@ -8,6 +12,11 @@ interface AppState {
 
   goToStage: (n: number) => void
   setRole: (id: RoleId) => void
+}
+
+const clampStage = (value: unknown): number => {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return 0
+  return Math.min(MAX_STAGE, Math.max(0, Math.floor(value)))
 }
 
 const generateRefCode = (): string => {
@@ -24,11 +33,35 @@ const generateRefCode = (): string => {
   }
 }
 
-export const useAppStore = create<AppState>((set) => ({
-  currentStage: 0,
-  role: null,
-  refCode: generateRefCode(),
+export const useAppStore = create<AppState>()(
+  persist(
+    (set) => ({
+      currentStage: 0,
+      role: null,
+      refCode: generateRefCode(),
 
-  goToStage: (n) => set({ currentStage: n }),
-  setRole: (id) => set({ role: id }),
-}))
+      goToStage: (n) => set({ currentStage: clampStage(n) }),
+      setRole: (id) => set({ role: id }),
+    }),
+    {
+      name: STORAGE_KEY,
+      version: 1,
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        currentStage: state.currentStage,
+        role: state.role,
+        refCode: state.refCode,
+      }),
+      merge: (persisted, current) => {
+        const saved = persisted as Partial<AppState>
+        return {
+          ...current,
+          ...saved,
+          currentStage: clampStage(saved.currentStage),
+          role: saved.role ?? null,
+          refCode: saved.refCode || current.refCode,
+        }
+      },
+    },
+  ),
+)
