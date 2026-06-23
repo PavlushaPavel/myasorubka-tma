@@ -96,6 +96,9 @@ export default function App() {
         <span>MYASORUBKA / FORENSIC UNIT</span>
         <span>LIVE CASE</span>
       </div>
+      <button className="quick-restart" onClick={() => navigateScreen(0)} type="button">
+        Начать сначала
+      </button>
       {supportsVT ? (
         <div className="stage-viewport">
           <Current />

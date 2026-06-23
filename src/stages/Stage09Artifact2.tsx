@@ -1,32 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 import { Reveal } from '../components/Reveal'
 import { CaseBar, ManifestList, ProgressLevels, SystemLabel, UnlockFrame } from '../components/ui'
 
 const ASSISTANT_LINK = 'https://chatgpt.com/g/g-68f0c74462fc81918f28b32f69b8484d-assistent-dlia-obiavlenii-iandeks-direkt'
-
-const PROMPT = `На основе анализа ЦА ниже сделай сильные офферы, заголовки и УТП.
-
-Контекст проекта:
-[вставить проект]
-
-Анализ ЦА:
-[вставить сегменты, боли, страхи, желания, критерии выбора]
-
-Нужно:
-1. Сделать 10 офферов по формуле 4U.
-2. Сделать 10 офферов по PAS.
-3. Сделать 10 офферов по BAB.
-4. Сделать 10 заголовков для Яндекс Директа.
-5. Сделать 10 первых строк для Авито.
-6. Сделать 10 идей для первого экрана лендинга.
-7. Сделать 10 идей для креативов.
-8. Отдельно показать плохие общие формулировки и как их усилить.
-9. Писать на русском, живым языком, без воды.
-10. Не использовать абстрактные фразы типа “качество”, “индивидуальный подход”, “профессионализм”, если они не раскрыты конкретикой.
-
-Цель: сделать предложение сильнее конкурентов и понятнее для конкретного сегмента ЦА.`
 
 const formulas = ['4U', 'PAS', 'BAB', 'AIDA', 'ODC', 'JTBD', 'Before/After', 'Problem/Solution']
 
@@ -59,14 +37,8 @@ const beforeAfter = [
 ]
 
 export const Stage09Artifact2 = () => {
-  const { impact, notify, select } = useTelegramHaptics()
-  const [copied, setCopied] = useState(false)
+  const { impact, select } = useTelegramHaptics()
   useEffect(() => { impact('heavy') }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const copyPrompt = () => {
-    impact('medium')
-    navigator.clipboard.writeText(PROMPT).then(() => { setCopied(true); notify('success') }).catch(() => {})
-  }
 
   return (
     <div className="screen screen--artifact">
@@ -154,9 +126,6 @@ export const Stage09Artifact2 = () => {
 
       <button className="btn btn-primary" onClick={() => { impact('light'); window.open(ASSISTANT_LINK, '_blank') }}>
         Открыть ожирнитель оффера
-      </button>
-      <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={copyPrompt}>
-        {copied ? 'Промпт скопирован' : 'Скопировать промпт для жирных офферов'}
       </button>
       <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(15, 'scan') }}>
         Дальше

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { navigateScreen } from '../lib/navigateScreen'
 import { useTelegramHaptics } from '../hooks/useTelegramHaptics'
 import { Reveal } from '../components/Reveal'
@@ -6,29 +6,6 @@ import { CaseBar, CinematicStrip, ManifestList, ProgressLevels, SystemLabel, Unl
 import artifactVault from '../assets/bg-artifact-vault.webp'
 
 const ASSISTANT_LINK = 'https://chatgpt.com/g/g-68c6691e3f8c8191b52f62ea57d0b828-issledovanie-tsa'
-
-const PROMPT = `Разбери проект как маркетолог перед запуском рекламы / Авито / VK / лендинга.
-
-Проект: [описание проекта]
-Гео: [город / регион]
-Услуга / продукт: [что продаём]
-Цель: [заявки / продажи / консультации / запись]
-
-Нужно вытащить:
-1. Сегменты ЦА.
-2. Боли каждого сегмента.
-3. Желания каждого сегмента.
-4. Страхи и возражения.
-5. Критерии выбора.
-6. Что люди уже могли пробовать.
-7. Какие офферы можно тестировать.
-8. Какие заголовки использовать.
-9. Что должно быть на первом экране.
-10. Какие вопросы задать клиенту.
-11. Что считать целевой заявкой.
-12. Какие риски есть до запуска.
-
-Пиши прикладно, без воды. Не делай абстрактный портрет ЦА. Мне нужна рабочая карта для рекламы, Авито, VK, креативов и лендинга.`
 
 const briefingAnswers = [
   '“ЦА — все, кому нужно.”',
@@ -80,14 +57,8 @@ const videoInside = [
 ]
 
 export const Stage07Artifact1 = () => {
-  const { impact, notify, select } = useTelegramHaptics()
-  const [copied, setCopied] = useState(false)
+  const { impact, select } = useTelegramHaptics()
   useEffect(() => { impact('heavy') }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const copyPrompt = () => {
-    impact('medium')
-    navigator.clipboard.writeText(PROMPT).then(() => { setCopied(true); notify('success') }).catch(() => {})
-  }
 
   return (
     <div className="screen screen--artifact">
@@ -160,9 +131,6 @@ export const Stage07Artifact1 = () => {
 
       <button className="btn btn-primary" onClick={() => { impact('light'); window.open(ASSISTANT_LINK, '_blank') }}>
         Открыть ассистент анализа ЦА
-      </button>
-      <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={copyPrompt}>
-        {copied ? 'Промпт скопирован' : 'Скопировать промпт для допроса проекта'}
       </button>
       <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(13, 'scan') }}>
         Дальше
