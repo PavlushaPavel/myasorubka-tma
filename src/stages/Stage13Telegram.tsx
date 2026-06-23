@@ -9,13 +9,12 @@ const TELEGRAM_LINK = 'https://t.me/pavel_context'
 const telegramItems = [
   'приложения, которые делаю через AI',
   'расширения, которые раздаю бесплатно',
-  'инструменты для директологов',
-  'расширение для чистки площадок в РСЯ',
-  'инструмент для аналитики и построения отчётов',
+  'чистку площадок в РСЯ',
+  'аналитику и построение отчётов',
   'кейсы',
-  'разборы',
+  'разборы связок',
   'немного лайва',
-  'и кучу пользы по рекламе, AI и маркетинговым связкам',
+  'много пользы для тех, кто работает с Директом, Авито, лендами, креативами и AI',
 ]
 
 export const Stage13Telegram = () => {
@@ -41,6 +40,12 @@ export const Stage13Telegram = () => {
           <p style={{ color: 'var(--text)', fontSize: 14.5, lineHeight: 1.6 }}>
             Если тебе зашёл этот разбор — у меня в Telegram ещё много такого.
           </p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13.5, lineHeight: 1.55, marginTop: 10 }}>
+            Там не мотивация про AI и не вода в стиле: “нейросети скоро изменят рынок”.
+          </p>
+          <p style={{ color: 'var(--ice)', fontSize: 13.5, lineHeight: 1.55, marginTop: 10, paddingLeft: 11, borderLeft: '2px solid var(--cyan)' }}>
+            Там я показываю, что реально делаю руками.
+          </p>
         </div>
       </Reveal>
 
@@ -52,10 +57,10 @@ export const Stage13Telegram = () => {
       <Reveal delay={0.18}>
         <div className="panel" style={{ margin: '18px 0', borderColor: 'rgba(255,177,59,0.36)', background: 'rgba(255,177,59,0.05)' }}>
           <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.6 }}>
-            Я не просто рассказываю, что AI “когда-нибудь изменит маркетинг”.
+            Я не просто рассказываю, что AI когда-нибудь поможет маркетологам.
           </p>
           <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 17, lineHeight: 1.35, color: 'var(--amber-soft)', marginTop: 10 }}>
-            Я уже собираю на нём инструменты, которыми можно пользоваться.
+            Я уже собираю на нём штуки, которые можно использовать в работе.
           </p>
         </div>
       </Reveal>
@@ -63,9 +68,14 @@ export const Stage13Telegram = () => {
       <button className="btn btn-primary" onClick={() => { impact('medium'); window.open(TELEGRAM_LINK, '_blank') }}>
         Подписаться на Telegram
       </button>
-      <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(22, 'scan') }}>
-        Сначала продолжить мясорубку
+      <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(21, 'scan') }}>
+        Продолжить мясорубку
       </button>
+      <p className="sys" style={{ marginTop: 12, color: 'var(--text-faint)', fontSize: 10.5, lineHeight: 1.55 }}>
+        Подписка — если хочешь больше инструментов, кейсов и бесплатных расширений.
+        <br />
+        Продолжить мясорубку — если хочешь дойти до сценария “Лендос за вечер” и забрать конкретный способ собрать посадочную через AI.
+      </p>
     </div>
   )
 }

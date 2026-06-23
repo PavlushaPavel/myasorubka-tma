@@ -121,7 +121,7 @@ export const Stage17Bablo = () => {
       </Reveal>
 
       <button className="btn btn-primary" style={{ marginTop: 18 }} onClick={copy}>{copied ? 'Ссылка и текст скопированы' : 'Получить ссылку и долю'}</button>
-      <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(20, 'scan') }}>
+      <button className="btn btn-ghost" style={{ marginTop: 10 }} onClick={() => { select(); navigateScreen(21, 'scan') }}>
         Позже, продолжить разбор
       </button>
     </div>

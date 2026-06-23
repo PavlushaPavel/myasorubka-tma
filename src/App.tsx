@@ -57,8 +57,8 @@ const STAGES: Record<number, () => ReactElement> = {
   17: PracticeRoles,
   18: Proof,
   19: Video,
-  20: Offer,
-  21: Telegram,
+  20: Telegram,
+  21: Offer,
   22: Bablo,
 }
 
